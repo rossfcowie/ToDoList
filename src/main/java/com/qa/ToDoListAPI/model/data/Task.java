@@ -18,7 +18,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import com.sun.istack.NotNull;
 
 @Entity
-@Table(name = "Tasks")
+@Table(name = "task")
 public class Task {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,11 +30,13 @@ public class Task {
 	
 	private String descrition;
 	
-	@OneToMany(mappedBy = "Tasks", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "task", fetch = FetchType.LAZY, orphanRemoval = true)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<Step> steps;
 
-	
+	public Task() {
+		this.steps = new ArrayList<Step>();
+	}
 	
 	public Task(String nameString, String descrition) {
 		super();
