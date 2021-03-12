@@ -84,8 +84,15 @@ public class StepControllerTest {
 		ResponseEntity<StepDTO> response = new ResponseEntity<StepDTO>(validStepDTO,HttpStatus.OK);
 		assertThat(response).isEqualTo(stepController.updateStep(validStep.getId(),validStep));
 		verify(stepService, times(1)).updateStep(Mockito.any(Integer.class),Mockito.any(Step.class));
-		
 	}
 	
-	
+	@Test
+	public void flipStepTest() {
+		StepDTO flipStepDTO = new StepDTO(0,"Remove Trash", true);
+		when(stepService.updateStep(Mockito.any(Integer.class))).thenReturn(flipStepDTO);
+		
+		ResponseEntity<StepDTO> response = new ResponseEntity<StepDTO>(flipStepDTO,HttpStatus.OK);
+		assertThat(response).isEqualTo(stepController.flipStep(validStep.getId()));
+		verify(stepService, times(1)).updateStep(Mockito.any(Integer.class));
+	}
 }

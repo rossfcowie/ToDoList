@@ -84,9 +84,26 @@ public class StepServiceTest {
 	}
 	
 	@Test
-	public void updateTaskTest() {
+	public void updateStepTest() {
 		Step validStep2 = new Step(0,"Attach Leash", false);
 		StepDTO validStepDTO2 = new StepDTO(0,"Attach Leash", false);
+		when(stepRepository.findById(Mockito.any(Integer.class))).thenReturn(Optional.of(validStep));
+		when(stepRepository.save(Mockito.any(Step.class))).thenReturn(validStep2);
+		when(stepMapper.mapToDTO(Mockito.any(Step.class))).thenReturn(validStepDTO2);
+
+		StepDTO toStepDTO = stepService.updateStep(validStep.getId(),validStep2);
+		
+		assertThat(validStepDTO2).isEqualTo(toStepDTO);
+
+		verify(stepRepository, times(1)).findById(Mockito.any(Integer.class));
+		verify(stepRepository, times(1)).save(Mockito.any(Step.class));
+		verify(stepMapper, times(1)).mapToDTO(Mockito.any(Step.class));
+	}
+	
+	@Test
+	public void flipStepTest() {
+		Step validStep2 = new Step(0,"Remove Trash", true);
+		StepDTO validStepDTO2 = new StepDTO(0,"Remove Trash", true);
 		when(stepRepository.findById(Mockito.any(Integer.class))).thenReturn(Optional.of(validStep));
 		when(stepRepository.save(Mockito.any(Step.class))).thenReturn(validStep2);
 		when(stepMapper.mapToDTO(Mockito.any(Step.class))).thenReturn(validStepDTO2);

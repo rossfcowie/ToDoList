@@ -71,6 +71,22 @@ public class StepService {
 		
 		return stepMapper.mapToDTO(updatedStep);
 	}
+	public StepDTO updateStep(Integer id) {
+		Optional<Step> stepInDbOpt = stepRepository.findById(id);
+		Step stepInDb;
+		
+		if (stepInDbOpt.isPresent()) {
+			stepInDb = stepInDbOpt.get();
+		} else {
+			throw new StepNotFoundException();
+		}
+		
+		stepInDb.setComplete(!stepInDb.isComplete());
 
+		
+		Step updatedStep = stepRepository.save(stepInDb);
+		
+		return stepMapper.mapToDTO(updatedStep);
+	}
 
 }
