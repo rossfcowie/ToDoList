@@ -38,4 +38,15 @@ public class StepService {
 		return null;
 	}
 
+	public Boolean deleteStep(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public StepDTO updateStep(Step step) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 }
