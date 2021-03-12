@@ -10,6 +10,7 @@ import com.qa.ToDoListAPI.model.data.Step;
 @Repository
 public interface StepRepository extends JpaRepository<Step, Integer> {
 	
+
 	@Query(value = "SELECT * FROM STEPS s WHERE s.fk_task_id = ?1", nativeQuery = true)
 	public List<Step> findForTask(int id);
 

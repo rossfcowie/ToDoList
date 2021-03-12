@@ -16,7 +16,7 @@ import org.springframework.lang.NonNull;
 import com.sun.istack.NotNull;
 
 @Entity
-@Table(name="Steps")
+@Table(name="step")
 public class Step {
 	
 	@Id 

@@ -26,6 +26,12 @@ public class TaskDTO {
 		this.descrition = descrition;
 		this.numSteps = numSteps;
 	}
+	public TaskDTO(String string, String string2, int i) {
+		this.nameString = nameString;
+		this.descrition = descrition;
+		this.numSteps = numSteps;
+	}
+
 	@Override
 	public String toString() {
 		return "TaskDTO [id=" + id + ", nameString=" + nameString + ", descrition=" + descrition + ", numSteps="

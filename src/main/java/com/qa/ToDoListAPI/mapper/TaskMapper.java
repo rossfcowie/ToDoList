@@ -12,12 +12,13 @@ public class TaskMapper {
 
 	private ModelMapper modelMapper;
 	
-//	@Autowired
-//	public TaskMapper(ModelMapper modelMapper) {
-//		this.modelMapper = modelMapper;
-//	}
-//	
-//	public TaskDTO mapToDTO(Task task) {
-//		return this.modelMapper.map(task, TaskDTO.class);
-//	}
-}
+
+	@Autowired
+	public TaskMapper(ModelMapper modelMapper) {
+		this.modelMapper = modelMapper;
+	}
+	
+	public TaskDTO mapToDTO(Task task) {
+		TaskDTO taskDTO = new TaskDTO(task.getId(), task.getName(), task.getDescrition(), task.getSteps());
+		return taskDTO;
+	}
