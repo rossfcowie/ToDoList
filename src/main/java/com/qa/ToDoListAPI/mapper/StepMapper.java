@@ -18,6 +18,8 @@ public class StepMapper {
 	}
 	
 	public StepDTO mapToDTO(Step step) {
-		return this.modelMapper.map(step, StepDTO.class);
+		StepDTO stepDTO = new StepDTO(step.getId(),step.getName(),step.getTask().getId(), step.isComplete());
+		
+		return stepDTO;
 	}
 }

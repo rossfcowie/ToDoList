@@ -7,11 +7,12 @@ import org.springframework.stereotype.Component;
 import com.qa.ToDoListAPI.model.DTO.TaskDTO;
 import com.qa.ToDoListAPI.model.data.Task;
 
-@Component
+//@Component
 public class TaskMapper {
 
 	private ModelMapper modelMapper;
 	
+
 	@Autowired
 	public TaskMapper(ModelMapper modelMapper) {
 		this.modelMapper = modelMapper;
@@ -21,4 +22,3 @@ public class TaskMapper {
 		TaskDTO taskDTO = new TaskDTO(task.getId(), task.getName(), task.getDescrition(), task.getSteps());
 		return taskDTO;
 	}
-}
