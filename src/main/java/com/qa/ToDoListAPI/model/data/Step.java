@@ -91,7 +91,6 @@ public class Step {
 	public String toString() {
 		return "Step [id=" + id + ", name=" + name + ", task=" + task + ", complete=" + complete + "]";
 	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -102,7 +101,6 @@ public class Step {
 		result = prime * result + ((task == null) ? 0 : task.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -128,5 +126,7 @@ public class Step {
 			return false;
 		return true;
 	}
+
+
 	
 }
