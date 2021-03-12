@@ -51,7 +51,7 @@ public class StepController {
 	}
 	@PutMapping("/{id}")
 	public ResponseEntity<StepDTO> updateStep(@RequestParam("id") int id, @RequestBody Step step){
-		StepDTO newStepDTO = stepService.updateStep(step);
+		StepDTO newStepDTO = stepService.updateStep(id,step);
 	return new ResponseEntity<StepDTO>(newStepDTO,HttpStatus.OK);
 }
 }

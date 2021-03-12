@@ -2,6 +2,7 @@ package com.qa.ToDoListAPI.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,19 +34,41 @@ public class StepService {
 		return stepDTOs;
 	}
 
+	
 	public StepDTO createStep(Step step) {
-		// TODO Auto-generated method stub
-		return null;
+		Step newStep = stepRepository.save(step);
+		
+		return stepMapper.mapToDTO(newStep);
 	}
 
 	public Boolean deleteStep(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		if (!stepRepository.existsById(id)) {
+			throw new StepNotFoundException();
+		}
+		stepRepository.deleteById(id);
+		
+		boolean exists = stepRepository.existsById(id);
+		
+		return !exists;
 	}
 
-	public StepDTO updateStep(Step step) {
-		// TODO Auto-generated method stub
-		return null;
+	public StepDTO updateStep(Integer id,Step step) {
+		Optional<Step> stepInDbOpt = stepRepository.findById(id);
+		Step stepInDb;
+		
+		if (stepInDbOpt.isPresent()) {
+			stepInDb = stepInDbOpt.get();
+		} else {
+			throw new StepNotFoundException();
+		}
+		
+		stepInDb.setName(step.getName());
+		stepInDb.setComplete(step.isComplete());
+
+		
+		Step updatedStep = stepRepository.save(stepInDb);
+		
+		return stepMapper.mapToDTO(updatedStep);
 	}
 
 
