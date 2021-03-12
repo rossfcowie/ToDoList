@@ -43,7 +43,7 @@ public TaskDTO updateTask(Integer id,Task task) {
 		throw new TaskNotFoundException();
 	}
 	taskInDb.setId(task.getId());
-	taskInDb.setNameString(task.getNameString());
+	taskInDb.setName(task.getName());
 	taskInDb.setDescrition(task.getDescrition());
 	taskInDb.setSteps(task.getSteps());
 	
