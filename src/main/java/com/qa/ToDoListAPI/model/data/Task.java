@@ -18,7 +18,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import com.sun.istack.NotNull;
 
 @Entity
-@Table(name = "Tasks")
+@Table(name = "task")
 public class Task {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,28 +26,30 @@ public class Task {
 	
 	@Column(name = "name")
 	@NotNull
-	private String nameString;
+	private String name;
 	
 	private String descrition;
 	
-	@OneToMany(mappedBy = "Tasks", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "task", fetch = FetchType.LAZY, orphanRemoval = true)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<Step> steps;
 
+	public Task() {
+		this.steps = new ArrayList<Step>();
+	}
 	
-	
-	public Task(String nameString, String descrition) {
+	public Task(String name, String descrition) {
 		super();
-		this.nameString = nameString;
+		this.name = name;
 		this.descrition = descrition;
 		this.steps = new ArrayList<Step>();
 	}
 
 	
-	public Task(int id, String nameString, String descrition, List<Step> steps) {
+	public Task(int id, String name, String descrition, List<Step> steps) {
 		super();
 		this.id = id;
-		this.nameString = nameString;
+		this.name = name;
 		this.descrition = descrition;
 		this.steps = steps;
 	}
@@ -58,7 +60,7 @@ public class Task {
 		int result = 1;
 		result = prime * result + ((descrition == null) ? 0 : descrition.hashCode());
 		result = prime * result + id;
-		result = prime * result + ((nameString == null) ? 0 : nameString.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((steps == null) ? 0 : steps.hashCode());
 		return result;
 	}
@@ -79,10 +81,10 @@ public class Task {
 			return false;
 		if (id != other.id)
 			return false;
-		if (nameString == null) {
-			if (other.nameString != null)
+		if (name == null) {
+			if (other.name != null)
 				return false;
-		} else if (!nameString.equals(other.nameString))
+		} else if (!name.equals(other.name))
 			return false;
 		if (steps == null) {
 			if (other.steps != null)
@@ -94,7 +96,7 @@ public class Task {
 
 	@Override
 	public String toString() {
-		return "Task [id=" + id + ", nameString=" + nameString + ", descrition=" + descrition + ", steps=" + steps
+		return "Task [id=" + id + ", nameString=" + name + ", descrition=" + descrition + ", steps=" + steps
 				+ "]";
 	}
 
@@ -102,8 +104,8 @@ public class Task {
 		return id;
 	}
 
-	public String getNameString() {
-		return nameString;
+	public String getName() {
+		return name;
 	}
 
 	public String getDescrition() {
@@ -118,8 +120,8 @@ public class Task {
 		this.id = id;
 	}
 
-	public void setNameString(String nameString) {
-		this.nameString = nameString;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setDescrition(String descrition) {

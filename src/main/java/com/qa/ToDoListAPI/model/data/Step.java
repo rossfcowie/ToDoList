@@ -1,6 +1,7 @@
 package com.qa.ToDoListAPI.model.data;
 
 import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import javax.persistence.Table;
 import org.springframework.lang.NonNull;
 
 import com.sun.istack.NotNull;
+
 @Entity
 @Table(name="Steps")
 public class Step {
@@ -26,7 +28,6 @@ public class Step {
 	@NonNull
 	private String name;
 	
-	
 	@ManyToOne(targetEntity = Task.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_task_ID") // indicates the Duck is the owner of the relationship
 	private Task task;
@@ -34,6 +35,26 @@ public class Step {
 	@NotNull
 	private boolean complete;
 
+	
+	public Step(int id, String name, Task task, boolean complete) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.task = task;
+		this.complete = complete;
+	}
+	public Step(String name,  boolean complete) {
+		super();
+		this.name = name;
+		this.complete = complete;
+	}
+	public Step(int id, String name, boolean complete) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.complete = complete;
+	}
+	
 	public int getId() {
 		return id;
 	}

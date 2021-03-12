@@ -7,6 +7,33 @@ public class StepDTO {
 	private String name;
 	private int task;
 	private boolean complete;
+	
+	
+	
+	public StepDTO(int id, String name, int task, boolean complete) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.task = task;
+		this.complete = complete;
+	}
+	public StepDTO(String name, int task, boolean complete) {
+		super();
+		this.name = name;
+		this.task = task;
+		this.complete = complete;
+	}
+	public StepDTO(int id, String name, boolean complete) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.complete = complete;
+	}
+	public StepDTO(String name, boolean complete) {
+		super();
+		this.name = name;
+		this.complete = complete;
+	}
 	public int getId() {
 		return id;
 	}
