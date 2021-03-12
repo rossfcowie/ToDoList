@@ -1,4 +1,4 @@
-package com.qa.ToDoListAPI.service;
+package com.qa.ToDoListAPI.exceptions;
 
 import javax.persistence.EntityNotFoundException;
 

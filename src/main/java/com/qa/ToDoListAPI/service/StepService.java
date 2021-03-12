@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.qa.ToDoListAPI.exceptions.StepNotFoundException;
 import com.qa.ToDoListAPI.mapper.StepMapper;
 import com.qa.ToDoListAPI.model.DTO.StepDTO;
 import com.qa.ToDoListAPI.model.data.Step;

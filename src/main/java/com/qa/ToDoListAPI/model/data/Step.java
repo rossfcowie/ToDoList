@@ -26,7 +26,6 @@ public class Step {
 	@NonNull
 	private String name;
 	
-	
 	@ManyToOne(targetEntity = Task.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_task_ID") // indicates the Duck is the owner of the relationship
 	private Task task;
@@ -34,6 +33,26 @@ public class Step {
 	@NotNull
 	private boolean complete;
 
+	
+	public Step(int id, String name, Task task, boolean complete) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.task = task;
+		this.complete = complete;
+	}
+	public Step(String name,  boolean complete) {
+		super();
+		this.name = name;
+		this.complete = complete;
+	}
+	public Step(int id, String name, boolean complete) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.complete = complete;
+	}
+	
 	public int getId() {
 		return id;
 	}
