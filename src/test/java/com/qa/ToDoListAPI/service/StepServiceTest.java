@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -59,4 +60,43 @@ public class StepServiceTest {
 		verify(stepMapper, times(1)).mapToDTO(Mockito.any(Step.class));
 	}
 	
+	@Test
+	public void createStepTest() {
+		
+		when(stepRepository.save(Mockito.any(Step.class))).thenReturn(validStep);
+		when(stepMapper.mapToDTO(Mockito.any(Step.class))).thenReturn(validStepDTO);
+
+		assertThat(validStepDTO).isEqualTo(stepService.createStep(validStep)); // true or false
+
+		
+		verify(stepRepository, times(1)).save(Mockito.any(Step.class));
+		verify(stepMapper, times(1)).mapToDTO(Mockito.any(Step.class));
+	}
+	
+	@Test
+	public void deleteStepTest() {
+		
+		when(stepRepository.existsById(Mockito.any(Integer.class))).thenReturn(true,false);
+		
+		assertThat(true).isEqualTo(stepService.deleteStep(validStep.getId())); // true or false
+		
+		verify(stepRepository, times(2)).existsById(Mockito.any(Integer.class));
+	}
+	
+	@Test
+	public void updateTaskTest() {
+		Step validStep2 = new Step(0,"Attach Leash", false);
+		StepDTO validStepDTO2 = new StepDTO(0,"Attach Leash", false);
+		when(stepRepository.findById(Mockito.any(Integer.class))).thenReturn(Optional.of(validStep));
+		when(stepRepository.save(Mockito.any(Step.class))).thenReturn(validStep2);
+		when(stepMapper.mapToDTO(Mockito.any(Step.class))).thenReturn(validStepDTO2);
+
+		StepDTO toStepDTO = stepService.updateStep(validStep.getId(),validStep2);
+		
+		assertThat(validStepDTO2).isEqualTo(toStepDTO);
+
+		verify(stepRepository, times(1)).findById(Mockito.any(Integer.class));
+		verify(stepRepository, times(1)).save(Mockito.any(Step.class));
+		verify(stepMapper, times(1)).mapToDTO(Mockito.any(Step.class));
+	}
 }

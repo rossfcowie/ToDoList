@@ -1,6 +1,7 @@
 package com.qa.ToDoListAPI.model.data;
 
 import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import javax.persistence.Table;
 import org.springframework.lang.NonNull;
 
 import com.sun.istack.NotNull;
+
 @Entity
 @Table(name="Steps")
 public class Step {
