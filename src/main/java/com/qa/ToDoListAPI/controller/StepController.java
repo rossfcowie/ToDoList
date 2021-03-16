@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.ToDoListAPI.model.DTO.StepDTO;
 import com.qa.ToDoListAPI.model.data.Step;
+import com.qa.ToDoListAPI.model.data.Task;
 import com.qa.ToDoListAPI.service.StepService;
 
 @RestController
@@ -39,8 +40,11 @@ public class StepController {
 		return new ResponseEntity<List<StepDTO>>(dtos, HttpStatus.OK);
 	}
 	
-	@PostMapping
-	public ResponseEntity<StepDTO> createStep(@RequestParam("id") int id, @RequestBody Step step){
+	@PostMapping("/{id}")
+	public ResponseEntity<StepDTO> createStep(@PathVariable("id") int id, @RequestBody Step step){
+		Task t = new Task();
+		t.setId(id);
+		step.setTask(t);
 		StepDTO newStepDTO = stepService.createStep(step);
 		HttpHeaders headers= new HttpHeaders();
 		headers.add("Location", String.valueOf(newStepDTO.getId()));

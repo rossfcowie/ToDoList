@@ -31,7 +31,6 @@ public class StepService {
 		List<StepDTO> stepDTOs = new ArrayList<StepDTO>();
 		
 		steps.forEach(step -> stepDTOs.add(stepMapper.mapToDTO(step)));
-				
 		return stepDTOs;
 	}
 

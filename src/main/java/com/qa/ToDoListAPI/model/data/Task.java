@@ -59,7 +59,6 @@ public class Task {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((descrition == null) ? 0 : descrition.hashCode());
-		result = prime * result + id;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((steps == null) ? 0 : steps.hashCode());
 		return result;
@@ -78,8 +77,6 @@ public class Task {
 			if (other.descrition != null)
 				return false;
 		} else if (!descrition.equals(other.descrition))
-			return false;
-		if (id != other.id)
 			return false;
 		if (name == null) {
 			if (other.name != null)

@@ -34,7 +34,11 @@ public class Step {
 	
 	@NotNull
 	private boolean complete;
-
+	
+	public Step() {
+		super();
+	}
+	
 	
 	public Step(int id, String name, Task task, boolean complete) {
 		super();
@@ -96,7 +100,6 @@ public class Step {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (complete ? 1231 : 1237);
-		result = prime * result + id;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((task == null) ? 0 : task.hashCode());
 		return result;
@@ -111,8 +114,6 @@ public class Step {
 			return false;
 		Step other = (Step) obj;
 		if (complete != other.complete)
-			return false;
-		if (id != other.id)
 			return false;
 		if (name == null) {
 			if (other.name != null)

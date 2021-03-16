@@ -18,7 +18,12 @@ public class StepMapper {
 	}
 	
 	public StepDTO mapToDTO(Step step) {
-		StepDTO stepDTO = new StepDTO(step.getId(),step.getName(),step.getTask().getId(), step.isComplete());
+		StepDTO stepDTO;
+		if(step.getTask()  != null) {
+			stepDTO = new StepDTO(step.getId(),step.getName(),step.getTask().getId(), step.isComplete());
+		}else {
+			stepDTO = new StepDTO(step.getId(),step.getName(),0, step.isComplete());
+		}
 		
 		return stepDTO;
 	}
