@@ -85,4 +85,8 @@ public static void setup() {
 		StepDTO toStepDTO = stepService.updateStep(validStep.getId(),validStep2);
 		assertThat(validStepDTO2).isEqualTo(toStepDTO);
 	}
+	@Test
+	public void flipStepTest() {
+	
+}
 }
