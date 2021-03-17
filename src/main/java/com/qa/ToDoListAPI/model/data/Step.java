@@ -29,7 +29,7 @@ public class Step {
 	private String name;
 	
 	@ManyToOne(targetEntity = Task.class, fetch = FetchType.EAGER)
-	@JoinColumn(name = "fk_task_ID") // indicates the Duck is the owner of the relationship
+	@JoinColumn(name = "fk_task_ID")
 	private Task task;
 	
 	@NotNull

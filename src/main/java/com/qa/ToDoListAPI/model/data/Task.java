@@ -28,7 +28,7 @@ public class Task {
 	@NotNull
 	private String name;
 	
-	private String descrition;
+	private String description;
 	
 	@OneToMany(mappedBy = "task", fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
@@ -41,25 +41,25 @@ public class Task {
 	public Task() {
 		this.steps = new ArrayList<Step>();
 	}
-	public Task(String name, String descrition) {
+	public Task(String name, String description) {
 		super();
 		this.name = name;
-		this.descrition = descrition;
+		this.description = description;
 		this.steps = new ArrayList<Step>();
 	}
 
 	
-	public Task(int id, String name, String descrition, List<Step> steps) {
+	public Task(int id, String name, String description, List<Step> steps) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.descrition = descrition;
+		this.description = description;
 		this.steps = steps;
 	}
 
-	public Task(String name, String descrition, List<Step> steps) {
+	public Task(String name, String description, List<Step> steps) {
 		this.name = name;
-		this.descrition = descrition;
+		this.description = description;
 		this.steps = steps;
 	}
 
@@ -67,7 +67,7 @@ public class Task {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((descrition == null) ? 0 : descrition.hashCode());
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((steps == null) ? 0 : steps.hashCode());
 		return result;
@@ -82,10 +82,10 @@ public class Task {
 		if (getClass() != obj.getClass())
 			return false;
 		Task other = (Task) obj;
-		if (descrition == null) {
-			if (other.descrition != null)
+		if (description == null) {
+			if (other.description != null)
 				return false;
-		} else if (!descrition.equals(other.descrition))
+		} else if (!description.equals(other.description))
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -102,7 +102,7 @@ public class Task {
 
 	@Override
 	public String toString() {
-		return "Task [id=" + id + ", nameString=" + name + ", descrition=" + descrition + ", steps=" + steps
+		return "Task [id=" + id + ", nameString=" + name + ", descrition=" + description + ", steps=" + steps
 				+ "]";
 	}
 
@@ -114,8 +114,8 @@ public class Task {
 		return name;
 	}
 
-	public String getDescrition() {
-		return descrition;
+	public String getDescription() {
+		return description;
 	}
 
 	public List<Step> getSteps() {
@@ -130,8 +130,8 @@ public class Task {
 		this.name = name;
 	}
 
-	public void setDescrition(String descrition) {
-		this.descrition = descrition;
+	public void setDescription(String description) {
+		this.description = this.description;
 	}
 
 	public void setSteps(List<Step> steps) {
