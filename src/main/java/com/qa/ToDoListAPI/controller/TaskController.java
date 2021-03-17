@@ -41,7 +41,7 @@ public class TaskController {
 		TaskDTO newTaskDTO= taskService.createTask(task);
 		HttpHeaders headers= new HttpHeaders();
 		headers.add("Location", String.valueOf(newTaskDTO.getId()));
-		return new ResponseEntity<TaskDTO>(newTaskDTO,headers,HttpStatus.OK);
+		return new ResponseEntity<TaskDTO>(newTaskDTO,headers,HttpStatus.CREATED);
 	}
 	@PutMapping("/{id}")
 	public ResponseEntity<TaskDTO> updateTask(@PathVariable("id") int id,@RequestBody Task task) {

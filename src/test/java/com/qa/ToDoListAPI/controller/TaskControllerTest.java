@@ -60,7 +60,7 @@ public class TaskControllerTest {
 		when(taskService.createTask(Mockito.any(Task.class))).thenReturn(validTaskDTO);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Location", String.valueOf(validTaskDTO.getId()));
-		ResponseEntity<TaskDTO> response = new ResponseEntity<TaskDTO>(validTaskDTO,headers,HttpStatus.OK);
+		ResponseEntity<TaskDTO> response = new ResponseEntity<TaskDTO>(validTaskDTO,headers,HttpStatus.CREATED);
 		assertThat(response).isEqualTo(taskController.createTask(validTask));
 		verify(taskService, times(1)).createTask(Mockito.any(Task.class));
 	}

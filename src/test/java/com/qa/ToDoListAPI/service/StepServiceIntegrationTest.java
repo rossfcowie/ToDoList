@@ -87,6 +87,9 @@ public static void setup() {
 	}
 	@Test
 	public void flipStepTest() {
-	
+		Step validStep2 = new Step(validStep.getId(),validStep.getName(),validStep.getTask() ,!validStep.isComplete());
+		StepDTO validStepDTO2 = stepMapper.mapToDTO(validStep2);
+		StepDTO toStepDTO = stepService.updateStep(validStep.getId());
+		assertThat(validStepDTO2).isEqualTo(toStepDTO);
 }
 }

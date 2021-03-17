@@ -48,19 +48,19 @@ public class StepController {
 		StepDTO newStepDTO = stepService.createStep(step);
 		HttpHeaders headers= new HttpHeaders();
 		headers.add("Location", String.valueOf(newStepDTO.getId()));
-		return new ResponseEntity<StepDTO>(newStepDTO,headers,HttpStatus.OK);
+		return new ResponseEntity<StepDTO>(newStepDTO,headers,HttpStatus.CREATED);
 	}
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Boolean> deleteStep(@PathVariable("id") int id) {
 		return new ResponseEntity<Boolean>(stepService.deleteStep(id), HttpStatus.OK);
 	}
 	@PutMapping("/{id}")
-	public ResponseEntity<StepDTO> updateStep(@RequestParam("id") int id, @RequestBody Step step){
+	public ResponseEntity<StepDTO> updateStep(@PathVariable("id") int id, @RequestBody Step step){
 		StepDTO newStepDTO = stepService.updateStep(id,step);
 	return new ResponseEntity<StepDTO>(newStepDTO,HttpStatus.OK);
 }
 	@PatchMapping("/{id}")
-	public ResponseEntity<StepDTO> flipStep(@RequestParam("id") int id){
+	public ResponseEntity<StepDTO> flipStep(@PathVariable("id") int id){
 		StepDTO newStepDTO = stepService.updateStep(id);
 	return new ResponseEntity<StepDTO>(newStepDTO,HttpStatus.OK);
 	}

@@ -64,7 +64,7 @@ public class StepControllerTest {
 		when(stepService.createStep(Mockito.any(Step.class))).thenReturn(validStepDTO);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Location", String.valueOf(validStep.getId()));
-		ResponseEntity<StepDTO> response = new ResponseEntity<StepDTO>(validStepDTO,headers,HttpStatus.OK);
+		ResponseEntity<StepDTO> response = new ResponseEntity<StepDTO>(validStepDTO,headers,HttpStatus.CREATED);
 		assertThat(response).isEqualTo(stepController.createStep(0, validStep));
 		verify(stepService, times(1)).createStep(Mockito.any(Step.class));
 	}

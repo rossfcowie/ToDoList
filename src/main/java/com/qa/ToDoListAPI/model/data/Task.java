@@ -30,14 +30,17 @@ public class Task {
 	
 	private String descrition;
 	
-	@OneToMany(mappedBy = "task", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "task", fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<Step> steps;
 
+	public Task(int i) {
+		id = i;
+		this.steps = new ArrayList<Step>();
+	}
 	public Task() {
 		this.steps = new ArrayList<Step>();
 	}
-	
 	public Task(String name, String descrition) {
 		super();
 		this.name = name;
@@ -49,6 +52,12 @@ public class Task {
 	public Task(int id, String name, String descrition, List<Step> steps) {
 		super();
 		this.id = id;
+		this.name = name;
+		this.descrition = descrition;
+		this.steps = steps;
+	}
+
+	public Task(String name, String descrition, List<Step> steps) {
 		this.name = name;
 		this.descrition = descrition;
 		this.steps = steps;
