@@ -12,17 +12,18 @@
 } 
 .Container{
     margin: 5px;
-    padding: 5px;
-    width: 95%;
+    padding:5px;
+    width: 98%;
     border-radius: 5px;
     border-color: black;
     border-style: solid;
 }
 .ContainerScrollable{
-    margin: 5px;
-    padding: 5px;
+    margin: 1px;
     width: 100%;
-    overflow: visible;
+    max-height: 150px;
+    min-height: 100%;
+    overflow-y: scroll;
     border-radius: 5px;
     border-color: black;
     border-style: solid;
@@ -32,4 +33,7 @@
     margin-bottom: .5rem;
     font-weight: 500;
     line-height: 1.2;
+}
+.row{
+    margin: 1px;
 }

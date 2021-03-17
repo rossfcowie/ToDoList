@@ -116,7 +116,7 @@ public class StepControllerIntegrationTest {
 	public void flipStepTest() throws Exception {
 		StepDTO expectedStep = new StepDTO(1, "Remove Trash",1, true);
 		MockHttpServletRequestBuilder mockRequest = 
-				MockMvcRequestBuilders.request(HttpMethod.PATCH, "/Step/1");
+				MockMvcRequestBuilders.request(HttpMethod.PUT, "/Step/f/1");
 		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isOk();
 		ResultMatcher contentMatcher = MockMvcResultMatchers.content()
 				.json(objectMapper.writeValueAsString(expectedStep));

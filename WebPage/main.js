@@ -1,5 +1,5 @@
 "use strict";
-
+getTasks();
 function getTasks(){
     fetch("http://localhost:8088/Task").then((res)=>{
       console.log(res);
@@ -14,7 +14,7 @@ function getTasks(){
     }).catch((err) => console.log(err));
 }
 
-getTasks();
+
 
 function setTasks(tasks){
 console.log(tasks);
@@ -42,7 +42,7 @@ function createTaskBox(task,i){
     </div><div class="row"><hr /></div> 
     <div class="row"><h4>${task.description}</h4></div>`;
     let steps = document.createElement("div")
-    steps.setAttribute("class","col-4")
+    steps.setAttribute("class","col-5")
     steps.innerHTML = `<div class="row">
     <div class="ContainerScrollable" id="task${i}StepContainer">
     </div>
@@ -67,7 +67,7 @@ function steps(steps,i){
         <div class="Container">
           <input
             type="checkbox"
-            onclick="ToggleTask(${step.id})"
+            onclick="ToggleStep(${step.id})"
             id="task${step.id}Check"
             ${completed}
             /><span class="StepText">${step.name}</span></div>`
@@ -87,4 +87,25 @@ function getSteps(i){
       res.json()
       .then(data => {steps(data,i);})
     }).catch((err) => console.log(err));
+}
+
+function ToggleStep(i){
+    console.log("Flipping" + i)
+    fetch("http://localhost:8088/Step/f/"+i , { //1
+    method: 'put'
+    }).then((res)=>{
+        console.log(res);
+        if (res.status !== 200) {
+          console.log(
+            `Looks like there was a problem.Status Code: ${res.status}`
+          );
+          return;
+        }
+        res.json()
+      }).catch((err) => console.log(err));
+      getTasks();
+  }
+
+function modify(i){
+    console.log("modify stup" + i)
 }

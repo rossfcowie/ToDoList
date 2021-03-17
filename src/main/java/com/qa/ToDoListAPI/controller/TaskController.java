@@ -38,6 +38,7 @@ public class TaskController {
 		List<TaskDTO> dtos= taskService.listAllTasks();
 		return new ResponseEntity<List<TaskDTO>>(dtos, HttpStatus.OK);
 	}
+	@PostMapping
 	public ResponseEntity<TaskDTO> createTask(@Valid @RequestBody Task task){
 		TaskDTO newTaskDTO= taskService.createTask(task);
 		HttpHeaders headers= new HttpHeaders();

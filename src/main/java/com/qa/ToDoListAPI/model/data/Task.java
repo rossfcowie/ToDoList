@@ -131,7 +131,7 @@ public class Task {
 	}
 
 	public void setDescription(String description) {
-		this.description = this.description;
+		this.description = description;
 	}
 
 	public void setSteps(List<Step> steps) {
