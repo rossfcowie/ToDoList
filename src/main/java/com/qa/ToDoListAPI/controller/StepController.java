@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.ToDoListAPI.model.DTO.StepDTO;
 import com.qa.ToDoListAPI.model.data.Step;
+import com.qa.ToDoListAPI.model.data.Task;
 import com.qa.ToDoListAPI.service.StepService;
 
 @RestController
@@ -39,24 +40,27 @@ public class StepController {
 		return new ResponseEntity<List<StepDTO>>(dtos, HttpStatus.OK);
 	}
 	
-	@PostMapping
-	public ResponseEntity<StepDTO> createStep(@RequestParam("id") int id, @RequestBody Step step){
+	@PostMapping("/{id}")
+	public ResponseEntity<StepDTO> createStep(@PathVariable("id") int id, @RequestBody Step step){
+		Task t = new Task();
+		t.setId(id);
+		step.setTask(t);
 		StepDTO newStepDTO = stepService.createStep(step);
 		HttpHeaders headers= new HttpHeaders();
 		headers.add("Location", String.valueOf(newStepDTO.getId()));
-		return new ResponseEntity<StepDTO>(newStepDTO,headers,HttpStatus.OK);
+		return new ResponseEntity<StepDTO>(newStepDTO,headers,HttpStatus.CREATED);
 	}
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Boolean> deleteStep(@PathVariable("id") int id) {
 		return new ResponseEntity<Boolean>(stepService.deleteStep(id), HttpStatus.OK);
 	}
 	@PutMapping("/{id}")
-	public ResponseEntity<StepDTO> updateStep(@RequestParam("id") int id, @RequestBody Step step){
+	public ResponseEntity<StepDTO> updateStep(@PathVariable("id") int id, @RequestBody Step step){
 		StepDTO newStepDTO = stepService.updateStep(id,step);
 	return new ResponseEntity<StepDTO>(newStepDTO,HttpStatus.OK);
 }
 	@PatchMapping("/{id}")
-	public ResponseEntity<StepDTO> flipStep(@RequestParam("id") int id){
+	public ResponseEntity<StepDTO> flipStep(@PathVariable("id") int id){
 		StepDTO newStepDTO = stepService.updateStep(id);
 	return new ResponseEntity<StepDTO>(newStepDTO,HttpStatus.OK);
 	}

@@ -30,14 +30,17 @@ public class Task {
 	
 	private String descrition;
 	
-	@OneToMany(mappedBy = "task", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "task", fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<Step> steps;
 
+	public Task(int i) {
+		id = i;
+		this.steps = new ArrayList<Step>();
+	}
 	public Task() {
 		this.steps = new ArrayList<Step>();
 	}
-	
 	public Task(String name, String descrition) {
 		super();
 		this.name = name;
@@ -54,12 +57,17 @@ public class Task {
 		this.steps = steps;
 	}
 
+	public Task(String name, String descrition, List<Step> steps) {
+		this.name = name;
+		this.descrition = descrition;
+		this.steps = steps;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((descrition == null) ? 0 : descrition.hashCode());
-		result = prime * result + id;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((steps == null) ? 0 : steps.hashCode());
 		return result;
@@ -78,8 +86,6 @@ public class Task {
 			if (other.descrition != null)
 				return false;
 		} else if (!descrition.equals(other.descrition))
-			return false;
-		if (id != other.id)
 			return false;
 		if (name == null) {
 			if (other.name != null)

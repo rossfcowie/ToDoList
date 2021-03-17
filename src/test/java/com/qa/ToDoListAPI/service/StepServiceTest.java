@@ -108,7 +108,7 @@ public class StepServiceTest {
 		when(stepRepository.save(Mockito.any(Step.class))).thenReturn(validStep2);
 		when(stepMapper.mapToDTO(Mockito.any(Step.class))).thenReturn(validStepDTO2);
 
-		StepDTO toStepDTO = stepService.updateStep(validStep.getId(),validStep2);
+		StepDTO toStepDTO = stepService.updateStep(validStep.getId());
 		
 		assertThat(validStepDTO2).isEqualTo(toStepDTO);
 

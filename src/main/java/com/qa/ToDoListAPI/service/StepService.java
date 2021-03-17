@@ -15,25 +15,24 @@ import com.qa.ToDoListAPI.model.repository.StepRepository;
 
 @Service
 public class StepService {
-//
-//	private StepRepository stepRepository;
-//
-//	private StepMapper stepMapper;
-//
-//	@Autowired
-//	public StepService(StepRepository stepRepository, StepMapper stepMapper) {
-//		this.stepMapper = stepMapper;
-//		this.stepRepository = stepRepository;
-//	}
-//	
-//	public List<StepDTO> readStepsInId(Integer id){
-//		List<Step> steps = stepRepository.findForTask(id);
-//		List<StepDTO> stepDTOs = new ArrayList<StepDTO>();
-//		
-//		steps.forEach(step -> stepDTOs.add(stepMapper.mapToDTO(step)));
-//				
-//		return stepDTOs;
-//	}
+
+	private StepRepository stepRepository;
+
+	private StepMapper stepMapper;
+
+	@Autowired
+	public StepService(StepRepository stepRepository, StepMapper stepMapper) {
+		this.stepMapper = stepMapper;
+		this.stepRepository = stepRepository;
+	}
+	
+	public List<StepDTO> readStepsInId(Integer id){
+		List<Step> steps = stepRepository.findForTask(id);
+		List<StepDTO> stepDTOs = new ArrayList<StepDTO>();
+		
+		steps.forEach(step -> stepDTOs.add(stepMapper.mapToDTO(step)));
+		return stepDTOs;
+	}
 
 	
 	public StepDTO createStep(Step step) {
