@@ -201,7 +201,7 @@ function postSteps(){
     let box = document.getElementById("newStepsContaier");
     let stepContainers = box.childNodes;
     stepContainers.forEach(step =>{
-        if(step.value != null){
+        if(step.value != null && step.value != "" ){
         postStep(step.value);}
     })
 }

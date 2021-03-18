@@ -66,6 +66,24 @@ function createTaskBox(task,i){
     return tbox
 }
 
+function deleteTask(id){
+  fetch("http://localhost:8088/Task/"+ id , { 
+    method: 'delete'
+    }).then((res)=>{
+        if (res.status !== 200) {
+          console.log(
+            `Looks like there was a problem.Status Code: ${res.status}`
+          );
+          return;
+        }
+        res.json()
+      }).then(data => console.log(data))
+      .catch((err) => console.log(err));
+      update();
+}
+
+
+
 function steps(steps,i){
     let stepContainer = document.getElementById(`task${i}StepContainer`)
     steps.forEach(step => {
