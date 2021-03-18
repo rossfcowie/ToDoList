@@ -1,6 +1,8 @@
 "use strict";
-getTasks();
-function getTasks(){
+var selectedTask = 0;
+
+getTasks(setTasks);
+function getTasks(use){
     fetch("http://localhost:8088/Task").then((res)=>{
       console.log(res);
       if (res.status !== 200) {
@@ -10,10 +12,19 @@ function getTasks(){
         return;
       }
       res.json()
-      .then(data => {setTasks(data);})
+      .then(data => {use(data);})
     }).catch((err) => console.log(err));
 }
 
+function loadTask(tasks){
+  let portal = document.getElementById("formModalPortal")
+  tasks.forEach(task=>{
+    if(task.id == selectedTask){
+      portal.contentWindow.open(task)
+    }
+  })
+  
+}
 
 
 function setTasks(tasks){
@@ -91,7 +102,7 @@ function getSteps(i){
 
 function ToggleStep(i){
     console.log("Flipping" + i)
-    fetch("http://localhost:8088/Step/f/"+i , { //1
+    fetch("http://localhost:8088/Step/f/"+i , { 
     method: 'put'
     }).then((res)=>{
         console.log(res);
@@ -106,6 +117,3 @@ function ToggleStep(i){
       getTasks();
   }
 
-function modify(i){
-    console.log("modify stup" + i)
-}

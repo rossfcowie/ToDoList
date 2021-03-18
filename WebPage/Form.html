@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="interface.css" />
+    <title>Document</title>
+  </head>
+<body>
+
+    
+        <p><label for="task_name">Task Name:</label>
+        <input type="text" name="task_name" id="taskName"></p>
+
+        <p><label for="task_description">Description</label>
+        <input type="text" name="task_description" id="description"></p>
+        
+        <div class = "Container" id = "newStepsContaier">Steps</br></div>
+        <button onclick="addStep()">aaa</button>
+
+
+
+
+        <input value="Submit" type="submit" onclick="submit()">
+    
+</body>
+<script src ="main.js"></script>
+<script>
+    function open(task){
+        console.log(task);
+        document.getElementById("taskName").value = task.nameString;
+        document.getElementById("description").value = task.description;
+        let box = document.getElementById("newStepsContaier");
+        getSteps(selectedTask)
+        let step = document.createElement("input")
+        step.setAttribute("type","text");
+        step.setAttribute("name","step");
+        step.setAttribute("id","Step"+i);
+        //step.value = 
+    }
+    function reset(){
+        document.getElementById("taskName").value = "";
+        document.getElementById("description").value  = "";
+        let box = document.getElementById("newStepsContaier");
+        box.innerHTML = ""
+    }
+    
+
+    var i =0
+function addStep(){
+    i++;
+    let box = document.getElementById("newStepsContaier");
+    let step = document.createElement("input")
+    step.setAttribute("type","text");
+    step.setAttribute("name","step");
+    step.setAttribute("id","Step"+i);
+    box.appendChild(step);
+    box.innerHTML +="</br>"
+}
+
+async function submit(){
+    let task =         {
+            "name":"Task name",
+            "description":""
+        };
+        task.name = document.getElementById("taskName").value;
+        task.description = document.getElementById("description").value;
+        postTask(task);
+
+}
+
+async function postTask(task){
+    const response = await fetch("http://localhost:8088/Task" , { 
+    method: "POST",
+    headers: {
+        "Content-type": "application/json"
+    },
+    body: JSON.stringify(task)
+    }).then((res)=>{
+        if (res.status !== 201) {
+          console.log(
+            `Looks like there was a problem.Status Code: ${res.status}`
+          );
+          return;
+        }6
+        res.json().then(data => {selectedTask = data.id; postSteps();})
+      })
+      .catch((err) =>{ console.log(err); return});
+      
+      return response
+}
+function postSteps(){
+    let box = document.getElementById("newStepsContaier");
+    let stepContainers = box.childNodes;
+    stepContainers.forEach(step =>{
+        if(step.value != null){
+        postStep(step.value);}
+    })
+}
+function postStep(step){
+    let stepObj = {
+            "name":"",
+            "Complete":false
+    }
+    stepObj.name = step;
+    fetch("http://localhost:8088/Step/"+ selectedTask , { 
+    method: "POST",
+    headers: {
+        "Content-type": "application/json"
+    },
+    body: JSON.stringify(stepObj)
+    }).then((res)=>{
+        console.log(res);
+        if (res.status !== 201) {
+          console.log(
+            `Looks like there was a problem.Status Code: ${res.status}`
+          );
+          return;
+        }
+        res.json()
+      }).then(data => console.log(data))
+      .catch((err) => console.log(err));
+}
+</script>
+
+
+</html>
