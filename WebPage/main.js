@@ -4,7 +4,6 @@ var selectedTask = 0;
 getTasks(setTasks);
 function getTasks(use){
     fetch("http://localhost:8088/Task").then((res)=>{
-      console.log(res);
       if (res.status !== 200) {
         console.log(
           `Looks like there was a problem.Status Code: ${res.status}`
@@ -29,13 +28,15 @@ function loadTask(tasks){
 
 function setTasks(tasks){
 console.log(tasks);
-let tList = document.getElementById("TasksList")
-tList.innerHTML="";
-tasks.forEach(task => {
-    console.log(task);
+let tList = document.querySelector("#TasksList");
+if(tList != null){
+  tList.innerHTML =""
+  tasks.forEach(task => {
     tList.appendChild(createTaskBox(task,task.id));
-    getSteps(task.id);
+    getSteps(steps,task.id);
 });
+}
+
 }
 
 function createTaskBox(task,i){
@@ -68,7 +69,7 @@ function createTaskBox(task,i){
 function steps(steps,i){
     let stepContainer = document.getElementById(`task${i}StepContainer`)
     steps.forEach(step => {
-        console.log(step)
+
         let completed = ""
         if(step.complete){
             completed = "checked"
@@ -86,9 +87,9 @@ function steps(steps,i){
     })
 }
 
-function getSteps(i){
+function getSteps(use,i){
     fetch("http://localhost:8088/Step/"+i).then((res)=>{
-      console.log(res);
+      
       if (res.status !== 200) {
         console.log(
           `Looks like there was a problem.Status Code: ${res.status}`
@@ -96,7 +97,7 @@ function getSteps(i){
         return;
       }
       res.json()
-      .then(data => {steps(data,i);})
+      .then(data => {use(data,i);})
     }).catch((err) => console.log(err));
 }
 
@@ -105,7 +106,7 @@ function ToggleStep(i){
     fetch("http://localhost:8088/Step/f/"+i , { 
     method: 'put'
     }).then((res)=>{
-        console.log(res);
+        
         if (res.status !== 200) {
           console.log(
             `Looks like there was a problem.Status Code: ${res.status}`
@@ -114,6 +115,11 @@ function ToggleStep(i){
         }
         res.json()
       }).catch((err) => console.log(err));
-      getTasks();
+      getTasks(setTasks);
   }
 
+  function update(){
+  
+  getTasks(setTasks);
+
+  }

@@ -37,6 +37,7 @@ public class Step {
 	
 	public Step() {
 		super();
+		this.name = "";
 	}
 	
 	

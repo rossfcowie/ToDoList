@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import com.qa.ToDoListAPI.model.DTO.TaskDTO;
 import com.qa.ToDoListAPI.model.data.Task;
 import com.qa.ToDoListAPI.service.TaskService;
@@ -47,6 +46,7 @@ public class TaskController {
 	}
 	@PutMapping("/{id}")
 	public ResponseEntity<TaskDTO> updateTask(@PathVariable("id") int id,@RequestBody Task task) {
+		task.setId(id);
 		TaskDTO newTaskDTO= taskService.updateTask(id, task);
 		
 		return new ResponseEntity<TaskDTO>(newTaskDTO, HttpStatus.OK);

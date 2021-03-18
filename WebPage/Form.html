@@ -33,18 +33,37 @@
 </body>
 <script src ="main.js"></script>
 <script>
+  function setTask(i){
+    selectedTask = i
+  }
+  var limiter = 0;
     function open(task){
-        console.log(task);
         document.getElementById("taskName").value = task.nameString;
         document.getElementById("description").value = task.description;
-        let box = document.getElementById("newStepsContaier");
-        getSteps(selectedTask)
-        let step = document.createElement("input")
-        step.setAttribute("type","text");
-        step.setAttribute("name","step");
-        step.setAttribute("id","Step"+i);
-        //step.value = 
+        limiter = task.numSteps;
+        console.log(limiter);
+        getSteps(fillSteps,selectedTask)
     }
+
+    
+function fillSteps(steps,taskid){
+  let stepContainer = document.getElementById("newStepsContaier");
+    steps.forEach(step => {
+
+        let completed = ""
+        if(step.complete){
+            completed = "checked"
+        }
+        let sbox = document.createElement("input")
+        sbox.setAttribute("type","text");
+        sbox.setAttribute("name","step");
+        sbox.setAttribute("id",step.id);
+        sbox.value = step.name
+          stepContainer.appendChild(sbox)
+    })
+ 
+}
+
     function reset(){
         document.getElementById("taskName").value = "";
         document.getElementById("description").value  = "";
@@ -55,8 +74,10 @@
 
     var i =0
 function addStep(){
+  console.log(selectedTask)
     i++;
     let box = document.getElementById("newStepsContaier");
+
     let step = document.createElement("input")
     step.setAttribute("type","text");
     step.setAttribute("name","step");
@@ -65,16 +86,96 @@ function addStep(){
     box.innerHTML +="</br>"
 }
 
-async function submit(){
+
+function submit(){
+  console.log(selectedTask)
     let task =         {
             "name":"Task name",
             "description":""
         };
         task.name = document.getElementById("taskName").value;
         task.description = document.getElementById("description").value;
-        postTask(task);
+        if(selectedTask == 0){
+          postTask(task);
+        }else{
+          updateTask(task)
+        }
+update();
+}
+async function updateTask(task){
+    const response = await fetch("http://localhost:8088/Task/" + selectedTask , { 
+    method: "Put",
+    headers: {
+        "Content-type": "application/json"
+    },
+    body: JSON.stringify(task)
+    }).then((res)=>{
+        if (res.status !== 200) {
+          console.log(
+            `Looks like there was a problem.Status Code: ${res.status}`
+          );
+          return;
+        }
+        res.json().then(data => {selectedTask = data.id; modSteps();})
+      })
+      .catch((err) =>{ console.log(err); return});
+      
+      return response
+}
+function modSteps(){
+     let box = document.getElementById("newStepsContaier");
+     let stepContainers = box.childNodes;
+     console.log(limiter)
+     stepContainers.forEach((step, index) =>{
+       if(step.nodeName == "INPUT"){
+     if(index>(limiter+1) &&  step.value != ""){
+         postStep(step.value);
+        }else if(step.value != ""){
+          updateStep(step.value, step.id);
+     }else if(step.id != null){
+       deleteStep(step.id)
+     }}})
 
 }
+
+function deleteStep(stepid){
+    fetch("http://localhost:8088/Step/"+ stepid , { 
+    method: 'delete'
+    }).then((res)=>{
+        if (res.status !== 200) {
+          console.log(
+            `Looks like there was a problem.Status Code: ${res.status}`
+          );
+          return;
+        }
+        res.json()
+      }).then(data => console.log(data))
+      .catch((err) => console.log(err));
+}
+function updateStep(text, stepid){
+  let stepObj = {
+            "name":""
+    }
+    stepObj.name = text;
+    fetch("http://localhost:8088/Step/"+ stepid , { 
+    method: 'put',
+    headers: {
+        "Content-type": "application/json"
+    },
+    body: JSON.stringify(stepObj)
+    }).then((res)=>{
+        if (res.status !== 200) {
+          console.log(
+            `Looks like there was a problem.Status Code: ${res.status}`
+          );
+          return;
+        }
+        res.json()
+      }).then(data => console.log(data))
+      .catch((err) => console.log(err));
+}
+
+
 
 async function postTask(task){
     const response = await fetch("http://localhost:8088/Task" , { 
@@ -117,7 +218,6 @@ function postStep(step){
     },
     body: JSON.stringify(stepObj)
     }).then((res)=>{
-        console.log(res);
         if (res.status !== 201) {
           console.log(
             `Looks like there was a problem.Status Code: ${res.status}`

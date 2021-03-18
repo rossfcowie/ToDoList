@@ -9,22 +9,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.ToDoListAPI.model.DTO.StepDTO;
 import com.qa.ToDoListAPI.model.data.Step;
 import com.qa.ToDoListAPI.model.data.Task;
 import com.qa.ToDoListAPI.service.StepService;
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+
 @RestController
 @RequestMapping(path="/Step")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class StepController {
 
 	private StepService stepService;
@@ -51,12 +51,12 @@ public class StepController {
 		headers.add("Location", String.valueOf(newStepDTO.getId()));
 		return new ResponseEntity<StepDTO>(newStepDTO,headers,HttpStatus.CREATED);
 	}
-
+	@CrossOrigin
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Boolean> deleteStep(@PathVariable("id") int id) {
 		return new ResponseEntity<Boolean>(stepService.deleteStep(id), HttpStatus.OK);
 	}
-
+	@CrossOrigin
 	@PutMapping("/{id}")
 	public ResponseEntity<StepDTO> updateStep(@PathVariable("id") int id, @RequestBody Step step){
 		StepDTO newStepDTO = stepService.updateStep(id,step);

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="interface.css" />
     <title>Document</title>
   </head>
-  <body>
+  <body onclick="update()">
     <div id="page">
       <div class="row">
         <div class="col-2"><img class="Logo" src="Resources/Logo.png" /></div>
@@ -22,66 +22,12 @@
           <div class="col-1"></div>
           <div class="col-10">
             <div style="max-height: fit-content;" class="ContainerScrollable" id="TasksList">
-
-
-              <div class="row" id="Task1Container">
-                <div class="Container">
-                  <div class="row">
-                    <div class="col-7">
-                      <div class="row"><h2>Task name</h2></div>
-                      <div class="row"><hr /></div>
-                      <div class="row"><h4>Task Description</h4></div>
-                    </div>
-                    <div class="col-5">
-                      <div class="row">
-                        <div class="Container" id="task1StepContainer">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="row" id="Task2Container">
-                <div class="Container">
-                  <div class="row">
-                    <div class="col-7">
-                      <div class="row"><h2>Task name</h2></div>
-                      <div class="row"><hr /></div>
-                      <div class="row"><h4>Task Description</h4></div>
-                    </div>
-                    <div class="col-4">
-                      <div class="row">
-                        <div class="Container">
-                          <div class="Container">
-                            <input
-                              type="checkbox"
-                              onclick="ToggleTask()"
-                              id="task1"
-                              checked
-                            /><span class="StepText">Step 1</span>
-                          </div>
-                          <div class="Container">
-                            <input
-                              type="checkbox"
-                              onclick="ToggleTask()"
-                              id="task1"
-                              checked
-                            /><span class="StepText">Step 2</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div id="formModal"  class="modal">
+    <div id="formModal"  class="modal" data-bs-toggle="modal" data-bs-target="#formModal">
       <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -105,12 +51,20 @@
         selectedTask = 0
         document.getElementById("formButton").innerHTML = "<h1>CREATE</h1>"
         let portal = document.getElementById("formModalPortal")
+        portal.contentWindow.setTask(selectedTask)
         portal.contentWindow.reset()
+        
       }else{
         selectedTask = i
+        let portal = document.getElementById("formModalPortal")
+        portal.contentWindow.setTask(selectedTask)
+        portal.contentWindow.reset()
         getTasks(loadTask)
+        
         document.getElementById("formButton").innerHTML = "<h1>EDIT</h1>"
         }
+        
+        console.log(selectedTask)
       }
     </script>
   </body>
