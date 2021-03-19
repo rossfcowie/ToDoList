@@ -44,7 +44,7 @@ public TaskDTO updateTask(Integer id,Task task) {
 	}
 	taskInDb.setId(task.getId());
 	taskInDb.setName(task.getName());
-	taskInDb.setDescrition(task.getDescrition());
+	taskInDb.setDescription(task.getDescription());
 	taskInDb.setSteps(task.getSteps());
 	taskRepository.save(taskInDb);
 	return taskMapper.mapToDTO(taskInDb);
@@ -57,4 +57,5 @@ public boolean deleteTask(Integer id) {
 	boolean exists = taskRepository.existsById(id);
 	return !exists;
 }
+
 }

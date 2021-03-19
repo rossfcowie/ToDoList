@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,11 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import com.qa.ToDoListAPI.model.DTO.TaskDTO;
 import com.qa.ToDoListAPI.model.data.Task;
 import com.qa.ToDoListAPI.service.TaskService;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(path="/Task")
 public class TaskController {
@@ -45,6 +46,7 @@ public class TaskController {
 	}
 	@PutMapping("/{id}")
 	public ResponseEntity<TaskDTO> updateTask(@PathVariable("id") int id,@RequestBody Task task) {
+		task.setId(id);
 		TaskDTO newTaskDTO= taskService.updateTask(id, task);
 		
 		return new ResponseEntity<TaskDTO>(newTaskDTO, HttpStatus.OK);

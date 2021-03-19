@@ -6,15 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.ToDoListAPI.model.DTO.StepDTO;
@@ -24,6 +24,7 @@ import com.qa.ToDoListAPI.service.StepService;
 
 @RestController
 @RequestMapping(path="/Step")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class StepController {
 
 	private StepService stepService;
@@ -33,13 +34,13 @@ public class StepController {
 		super();
 		this.stepService = stepService;
 	}
-	
+
 	@GetMapping("/{id}")
 	public ResponseEntity<List<StepDTO>> getStepsFromId(@PathVariable("id") int id){
 		List<StepDTO> dtos = stepService.readStepsInId(id);
 		return new ResponseEntity<List<StepDTO>>(dtos, HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/{id}")
 	public ResponseEntity<StepDTO> createStep(@PathVariable("id") int id, @RequestBody Step step){
 		Task t = new Task();
@@ -50,16 +51,19 @@ public class StepController {
 		headers.add("Location", String.valueOf(newStepDTO.getId()));
 		return new ResponseEntity<StepDTO>(newStepDTO,headers,HttpStatus.CREATED);
 	}
+	@CrossOrigin
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Boolean> deleteStep(@PathVariable("id") int id) {
 		return new ResponseEntity<Boolean>(stepService.deleteStep(id), HttpStatus.OK);
 	}
+	@CrossOrigin
 	@PutMapping("/{id}")
 	public ResponseEntity<StepDTO> updateStep(@PathVariable("id") int id, @RequestBody Step step){
 		StepDTO newStepDTO = stepService.updateStep(id,step);
 	return new ResponseEntity<StepDTO>(newStepDTO,HttpStatus.OK);
 }
-	@PatchMapping("/{id}")
+	@CrossOrigin
+	@PutMapping("/f/{id}")
 	public ResponseEntity<StepDTO> flipStep(@PathVariable("id") int id){
 		StepDTO newStepDTO = stepService.updateStep(id);
 	return new ResponseEntity<StepDTO>(newStepDTO,HttpStatus.OK);

@@ -1,8 +1,8 @@
 package com.qa.ToDoListAPI.exceptions;
 
-import javax.persistence.EntityNotFoundException;
+import javax.persistence.PersistenceException;
 
-public class StepNotFoundException extends EntityNotFoundException {
+public class StepNotFoundException extends PersistenceException {
 
 	public StepNotFoundException() {
 		super();
