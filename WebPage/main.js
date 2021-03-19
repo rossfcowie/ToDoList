@@ -1,6 +1,5 @@
 "use strict";
 var selectedTask = 0;
-
 getTasks(setTasks);
 function getTasks(use){
     fetch("http://localhost:8088/Task").then((res)=>{
@@ -35,6 +34,8 @@ if(tList != null){
     tList.appendChild(createTaskBox(task,task.id));
     getSteps(steps,task.id);
 });
+}else{
+  console.log("tlistnull")
 }
 
 }
@@ -77,9 +78,10 @@ function deleteTask(id){
           return;
         }
         res.json()
-      }).then(data => console.log(data))
+      }).then(data => {modify(id);
+        getTasks(setTasks);})
       .catch((err) => console.log(err));
-      update();
+      
 }
 
 
@@ -94,7 +96,7 @@ function steps(steps,i){
         }
         let sbox = document.createElement("div")
         sbox.innerHTML = `
-        <div class="Container">
+        <div class="Container${step.id}">
           <input
             type="checkbox"
             onclick="ToggleStep(${step.id})"
@@ -135,9 +137,36 @@ function ToggleStep(i){
       }).catch((err) => console.log(err));
       getTasks(setTasks);
   }
-
+  
   function update(){
   
   getTasks(setTasks);
 
   }
+
+  function submit(){
+  
+    let task =         {
+            "name":"Task name",
+            "description":""
+        };
+        
+        task.name = document.getElementById("taskName").value;
+        task.description = document.getElementById("description").value;
+        if(task.name != null && task.name != ""){
+        if(selectedTask == 0){
+          postTask(task);
+        }else{
+          updateTask(task)
+        }}
+        parent.window.document.getElementById("formModal").classList.remove('show');
+        parent.window.document.getElementById("formModal").setAttribute("style","display: none;");
+        parent.window.document.getElementById("formModal").setAttribute("role","");
+        parent.window.document.getElementById("formModal").removeAttribute('aria-modal');
+        parent.window.document.getElementById("formModal").setAttribute('aria-hidden', 'true');
+        parent.window.document.body.removeAttribute('style');
+        parent.window.document.body.classList.remove('modal-open');
+        parent.window.document.querySelector('.modal-backdrop').remove();
+
+        update();
+}

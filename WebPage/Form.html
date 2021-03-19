@@ -23,12 +23,12 @@
         <input type="text" name="task_description" id="description"></p>
         
         <div class = "Container" id = "newStepsContaier">Steps</br></div>
-        <button onclick="addStep()">aaa</button>
+        <button onclick="addStep()">Add Step</button>
 
 
 
 
-        <input value="Submit" type="submit" onclick="submit()">
+        <input id="submitButton" value="Submit" type="submit" onclick="submit()">
     
 </body>
 <script src ="main.js"></script>
@@ -87,21 +87,7 @@ function addStep(){
 }
 
 
-function submit(){
-  console.log(selectedTask)
-    let task =         {
-            "name":"Task name",
-            "description":""
-        };
-        task.name = document.getElementById("taskName").value;
-        task.description = document.getElementById("description").value;
-        if(selectedTask == 0){
-          postTask(task);
-        }else{
-          updateTask(task)
-        }
-update();
-}
+
 async function updateTask(task){
     const response = await fetch("http://localhost:8088/Task/" + selectedTask , { 
     method: "Put",
