@@ -2,11 +2,9 @@ import static org.junit.Assert.fail;
 
 import java.util.concurrent.TimeUnit;
 
-import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -321,5 +319,35 @@ public class UserAcceptanceTests {
 			fail();
 	}
 }
-	
+	@Test
+	public void FlipStepTest() throws InterruptedException {
+		final String NAME = "Walk the dog" + Math.floor((Math.random() * 55) + 5);
+		final String DESCRIPTION = "Take the dog out for a " + Math.floor((Math.random() * 45) + 15) + " minuite walk";
+		final String STEP = "Attach Leash" + Math.floor((Math.random() * 55) + 5);
+		idexPage.clickCreate();
+		driver.switchTo().frame(driver.findElement(By.tagName("iframe")));
+		formPage.enterTaskName(NAME);
+		formPage.enterTaskDescription(DESCRIPTION);
+		formPage.add().sendKeys(STEP);
+		formPage.submit();
+		driver.switchTo().defaultContent();
+		idexPage.exit();
+		driver.switchTo().defaultContent();
+		idexPage.clickBody();
+		if (idexPage.addedStep(NAME, STEP)) {
+			idexPage.getStepCheck().click();
+			if(idexPage.getStepCheck().isSelected()) {
+				idexPage.deleteAll();
+			}else {
+				idexPage.deleteAll();
+				fail();
+			}
+			
+			
+			
+		} else {
+			idexPage.deleteAll();
+			fail();
+		}
+	}
 }

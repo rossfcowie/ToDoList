@@ -134,5 +134,7 @@ public class IndexPage {
 		}
 		return false;
 	}
-	
+	public WebElement getStepCheck() {
+		return getSteps().get(0).findElement(By.tagName("INPUT"));
+	}
 }
