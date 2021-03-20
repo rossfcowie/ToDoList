@@ -17,6 +17,8 @@ public class IndexPage {
 		
 	}
 	
+	@FindBy(id = "cross")
+	private WebElement exitBtn;
 	
 	@FindBy(id="formButton")
 	private WebElement create;
@@ -55,6 +57,7 @@ public class IndexPage {
 	public boolean added(String taskName, String description) {
 		List<WebElement> tasks = getTasks();
 		for (WebElement task : tasks) {
+			System.out.println(task);
 			WebElement a = task.findElement(By.tagName("h2"));
 			WebElement b = task.findElement(By.tagName("h4"));
 			if(a.getText().equals(taskName)) {
@@ -69,7 +72,15 @@ public class IndexPage {
 		List<WebElement> tasks = getTasks();
 		for (WebElement task : tasks) {
 			WebElement a = task.findElement(By.tagName("h2"));
-			WebElement b = task.findElement(By.tagName("span"));
+			WebElement b;
+			try {
+				b = task.findElement(By.tagName("span"));
+				
+			} catch (Exception e) {
+				return false;
+			}
+			
+			
 			if(a.getText().equals(taskName)) {
 				if(b.getText().equals(step)) {
 					return true;
@@ -88,9 +99,40 @@ public class IndexPage {
 			clickDelete();
 		}
 	}
-	
+	public void exit() {
+		exitBtn.click();
+	}
 	public void clickBody() {
 		body.click();
+	}
+	public boolean addedStep(String name, String stepText, String step2Text) {
+		List<WebElement> tasks = getTasks();
+		for (WebElement task : tasks) {
+			WebElement a = task.findElement(By.tagName("h2"));
+			if(a.getText().equals(name)) {
+				boolean found =false;
+				List<WebElement> steps = task.findElements(By.tagName("span"));
+				for (WebElement step : steps) {
+					if(step.getText().equals(stepText)) {
+						if(found) {
+							return true;
+						}else {
+							found = true;
+						}
+					}else {
+						if(step.getText().equals(step2Text)) {
+							if(found) {
+								return true;
+							}else {
+								found = true;
+							}
+						}
+					}
+				}
+			}
+			
+		}
+		return false;
 	}
 	
 }

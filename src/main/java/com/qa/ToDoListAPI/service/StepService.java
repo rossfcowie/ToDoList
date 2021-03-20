@@ -61,11 +61,7 @@ public class StepService {
 		} else {
 			throw new StepNotFoundException();
 		}
-		
 		stepInDb.setName(step.getName());
-		stepInDb.setComplete(step.isComplete());
-
-		
 		Step updatedStep = stepRepository.save(stepInDb);
 		
 		return stepMapper.mapToDTO(updatedStep);

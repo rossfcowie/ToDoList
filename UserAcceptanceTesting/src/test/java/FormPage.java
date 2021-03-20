@@ -2,6 +2,7 @@ import java.util.List;
 
 import org.openqa.selenium.By.ById;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -26,7 +27,7 @@ public class FormPage {
 	@FindBy(id="newStepsContaier")
 	private WebElement stepContainer;
 	
-
+	
 	
 	public FormPage(WebDriver driver) {
 		this.driver = driver;
@@ -35,19 +36,25 @@ public class FormPage {
 	public WebElement add() {
 		addButton.click();
 		int i= stepContainer.findElements(By.tagName("input")).size();
-		return stepContainer.findElement(By.id("Step"+i));
+		
+		WebElement elmnt =  stepContainer.findElement(By.id(""+i));
+		return elmnt;
 		}
+
 	public WebElement modify(int i) {
-		return stepContainer.findElement(By.id("Step"+i));
+		return stepContainer.findElements(By.name("step")).get(i);
 		}
 	public void enterTaskName(String str) {
+		taskNameBox.sendKeys(Keys.chord(Keys.CONTROL,"a"));
 		taskNameBox.sendKeys(str);
 	}
 	public void enterTaskDescription(String str) {
+		taskDescriptionBox.sendKeys(Keys.chord(Keys.CONTROL,"a"));
 		taskDescriptionBox.sendKeys(str);
 	}
 	public void submit() {
 		submitButton.click();
+		
 	}
 
 

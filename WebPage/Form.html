@@ -10,6 +10,7 @@
       integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
       crossorigin="anonymous"
     />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="interface.css" />
     <title>Document</title>
   </head>
@@ -74,19 +75,33 @@ function fillSteps(steps,taskid){
 
     var i =0
 function addStep(){
-  console.log(selectedTask)
     i++;
     let box = document.getElementById("newStepsContaier");
-
-    let step = document.createElement("input")
+    let linebreak = document.createElement("br");
+    let step = document.createElement("input");
     step.setAttribute("type","text");
     step.setAttribute("name","step");
-    step.setAttribute("id","Step"+i);
+    step.setAttribute("id",i);
     box.appendChild(step);
-    box.innerHTML +="</br>"
+    box.appendChild(linebreak);
 }
 
-
+function submit(){
+  
+  let task =         {
+          "name":"Task name",
+          "description":""
+      };
+      
+      task.name = document.getElementById("taskName").value;
+      task.description = document.getElementById("description").value;
+      if(task.name != null && task.name != ""){
+      if(selectedTask == 0){
+        postTask(task);
+      }else{
+        updateTask(task)
+      }}
+}
 
 async function updateTask(task){
     const response = await fetch("http://localhost:8088/Task/" + selectedTask , { 
@@ -102,7 +117,13 @@ async function updateTask(task){
           );
           return;
         }
-        res.json().then(data => {selectedTask = data.id; modSteps();})
+        res.json().then(data => {
+          
+          
+          selectedTask = data.id; modSteps();
+        
+        
+        })
       })
       .catch((err) =>{ console.log(err); return});
       
@@ -111,12 +132,18 @@ async function updateTask(task){
 function modSteps(){
      let box = document.getElementById("newStepsContaier");
      let stepContainers = box.childNodes;
-     console.log(limiter)
+     stepContainers.forEach((step) =>{
+      if(step.nodeName != "INPUT"){
+        step.remove();
+      }
+     })
+     console.log(stepContainers.length)
      stepContainers.forEach((step, index) =>{
+       console.log("index:"+index)
        if(step.nodeName == "INPUT"){
-     if(index>(limiter+1) &&  step.value != ""){
+     if(step.id<=index+stepContainers.length &&  step.value != ""){
          postStep(step.value);
-        }else if(step.value != ""){
+        }else if(step.value != "" && step.id>index+stepContainers.length){
           updateStep(step.value, step.id);
      }else if(step.id != null){
        deleteStep(step.id)

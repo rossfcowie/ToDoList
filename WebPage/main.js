@@ -122,7 +122,7 @@ function getSteps(use,i){
 }
 
 function ToggleStep(i){
-    console.log("Flipping" + i)
+    
     fetch("http://localhost:8088/Step/f/"+i , { 
     method: 'put'
     }).then((res)=>{
@@ -135,7 +135,7 @@ function ToggleStep(i){
         }
         res.json()
       }).catch((err) => console.log(err));
-      getTasks(setTasks);
+      
   }
   
   function update(){
@@ -144,29 +144,3 @@ function ToggleStep(i){
 
   }
 
-  function submit(){
-  
-    let task =         {
-            "name":"Task name",
-            "description":""
-        };
-        
-        task.name = document.getElementById("taskName").value;
-        task.description = document.getElementById("description").value;
-        if(task.name != null && task.name != ""){
-        if(selectedTask == 0){
-          postTask(task);
-        }else{
-          updateTask(task)
-        }}
-        parent.window.document.getElementById("formModal").classList.remove('show');
-        parent.window.document.getElementById("formModal").setAttribute("style","display: none;");
-        parent.window.document.getElementById("formModal").setAttribute("role","");
-        parent.window.document.getElementById("formModal").removeAttribute('aria-modal');
-        parent.window.document.getElementById("formModal").setAttribute('aria-hidden', 'true');
-        parent.window.document.body.removeAttribute('style');
-        parent.window.document.body.classList.remove('modal-open');
-        parent.window.document.querySelector('.modal-backdrop').remove();
-
-        update();
-}

@@ -42,10 +42,9 @@ public TaskDTO updateTask(Integer id,Task task) {
 	}else {
 		throw new TaskNotFoundException();
 	}
-	taskInDb.setId(task.getId());
+
 	taskInDb.setName(task.getName());
 	taskInDb.setDescription(task.getDescription());
-	taskInDb.setSteps(task.getSteps());
 	taskRepository.save(taskInDb);
 	return taskMapper.mapToDTO(taskInDb);
 }
