@@ -1,25 +1,25 @@
 package com.qa.todolistapi.model.dto;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import com.qa.todolistapi.model.DTO.TaskDTO;
 import com.qa.todolistapi.model.data.Step;
+import com.qa.todolistapi.model.dto.TaskDTO;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 
-public class TaskDTOTest {
+ class TaskDTOTest {
 	@Test
-	public void testEquals() {
+	 void testEquals() {
 		EqualsVerifier.simple().forClass(TaskDTO.class).verify();
 	}
 	@Test
-	public void ConstructorTest() {
+	 void ConstructorTest() {
 		TaskDTO newTaskDTO = new TaskDTO(0, null, null, new ArrayList<Step>());
-		assertThat(newTaskDTO.toString().equals("TaskDTO [id=" + 0 + ", nameString=" + "" + ", description=" + "" + ", numSteps="+ 0 + "]"));
+		assertEquals(newTaskDTO.toString(),("TaskDTO [id=" + 0 + ", nameString=" + null + ", description=" + null + ", numSteps="+ 0 + "]"));
 
 	}
 

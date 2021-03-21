@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qa.todolistapi.model.DTO.TaskDTO;
 import com.qa.todolistapi.model.data.Task;
+import com.qa.todolistapi.model.dto.TaskDTO;
 import com.qa.todolistapi.service.TaskService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -35,25 +35,25 @@ public class TaskController {
 	@GetMapping
 	public ResponseEntity<List<TaskDTO>> getAllTasks(){
 		List<TaskDTO> dtos= taskService.listAllTasks();
-		return new ResponseEntity<List<TaskDTO>>(dtos, HttpStatus.OK);
+		return new ResponseEntity<>(dtos, HttpStatus.OK);
 	}
 	@PostMapping
 	public ResponseEntity<TaskDTO> createTask(@Valid @RequestBody Task task){
 		TaskDTO newTaskDTO= taskService.createTask(task);
 		HttpHeaders headers= new HttpHeaders();
 		headers.add("Location", String.valueOf(newTaskDTO.getId()));
-		return new ResponseEntity<TaskDTO>(newTaskDTO,headers,HttpStatus.CREATED);
+		return new ResponseEntity<>(newTaskDTO,headers,HttpStatus.CREATED);
 	}
 	@PutMapping("/{id}")
 	public ResponseEntity<TaskDTO> updateTask(@PathVariable("id") int id,@RequestBody Task task) {
 		task.setId(id);
 		TaskDTO newTaskDTO= taskService.updateTask(id, task);
 		
-		return new ResponseEntity<TaskDTO>(newTaskDTO, HttpStatus.OK);
+		return new ResponseEntity<>(newTaskDTO, HttpStatus.OK);
 	}
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Boolean> deleteTask(@PathVariable("id") int id) {		
-		return new ResponseEntity<Boolean>(taskService.deleteTask(id), HttpStatus.OK);
+		return new ResponseEntity<>(taskService.deleteTask(id), HttpStatus.OK);
 	}
 	
 }

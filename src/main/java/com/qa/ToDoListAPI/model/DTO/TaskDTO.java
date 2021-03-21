@@ -1,4 +1,4 @@
-package com.qa.todolistapi.model.DTO;
+package com.qa.todolistapi.model.dto;
 
 import java.util.List;
 
@@ -68,9 +68,9 @@ public class TaskDTO {
 				return false;
 		} else if (!nameString.equals(other.nameString))
 			return false;
-		if (numSteps != other.numSteps)
-			return false;
-		return true;
+
+			return numSteps == other.numSteps;
+
 	}
 	public int getId() {
 		return id;

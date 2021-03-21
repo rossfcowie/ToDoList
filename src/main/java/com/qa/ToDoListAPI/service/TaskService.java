@@ -7,9 +7,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.qa.todolistapi.exceptions.TaskNotFoundException;
 import com.qa.todolistapi.mapper.TaskMapper;
-import com.qa.todolistapi.model.DTO.TaskDTO;
 import com.qa.todolistapi.model.data.Task;
+import com.qa.todolistapi.model.dto.TaskDTO;
 import com.qa.todolistapi.model.repository.TaskRepository;
 
 @Service
@@ -25,13 +26,13 @@ public TaskService(TaskRepository taskRepository, TaskMapper taskMapper) {
 
 public List<TaskDTO> listAllTasks(){
 	List<Task> tasks = taskRepository.findAll();
-	List<TaskDTO> taskDTOs = new ArrayList<TaskDTO>();
+	List<TaskDTO> taskDTOs = new ArrayList<>();
 	tasks.forEach(task->taskDTOs.add(taskMapper.mapToDTO(task)));
 	return taskDTOs;
 }
 public TaskDTO createTask(Task task) {
-	TaskDTO taskDTO = taskMapper.mapToDTO(taskRepository.save(task));
-	return taskDTO;
+	return taskMapper.mapToDTO(taskRepository.save(task));
+
 }
 
 public TaskDTO updateTask(Integer id,Task task) {

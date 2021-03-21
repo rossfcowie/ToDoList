@@ -14,9 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.qa.todolistapi.mapper.StepMapper;
-import com.qa.todolistapi.model.DTO.StepDTO;
 import com.qa.todolistapi.model.data.Step;
 import com.qa.todolistapi.model.data.Task;
+import com.qa.todolistapi.model.dto.StepDTO;
 import com.qa.todolistapi.model.repository.StepRepository;
 import com.qa.todolistapi.model.repository.TaskRepository;
 import com.qa.todolistapi.service.StepService;
@@ -25,7 +25,7 @@ import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
 @SpringBootTest
-public class StepServiceIntegrationTest {
+ class StepServiceIntegrationTest {
 	@Autowired
 	private StepService stepService;
 
@@ -50,17 +50,17 @@ public class StepServiceIntegrationTest {
 	static ExtentTest test;
 
 	@BeforeAll
-	public static void setup() {
+	 static void setup() {
 		validTask = new Task("Take out the trash", "Remove rubbish");
 	}
 
 	@AfterAll
-	public static void teardown() {
+	 static void teardown() {
 		report.flush();
 	}
 
 	@BeforeEach
-	public void init() {
+	 void init() {
 		taskRepository.deleteAll();
 		validTask = taskRepository.save(validTask);
 		validStep = new Step("Remove Trash", false);
@@ -76,16 +76,16 @@ public class StepServiceIntegrationTest {
 	}
 
 	@Test
-	public void readAllStepsTest() {
+	 void readAllStepsTest() {
 		test = report.startTest("Get steps in task test");
 		List<StepDTO> stepsindb = stepService.readStepsInId(validTask.getId());
-		assertThat(validStepDtos).isEqualTo(stepsindb); // true or false
+		assertThat(validStepDtos).isEqualTo(stepsindb); 
 		test.log(LogStatus.PASS, "Ok");
 		report.endTest(test);
 	}
 
 	@Test
-	public void createStepTest() {
+	 void createStepTest() {
 		test = report.startTest("Create step test");
 		Step validStep2 = new Step(2, "Open bin", validTask, true);
 		StepDTO validStepDTO2 = stepMapper.mapToDTO(validStep2);
@@ -93,17 +93,17 @@ public class StepServiceIntegrationTest {
 		test.log(LogStatus.PASS, "Ok");
 		report.endTest(test);
 	}
-
+	
 	@Test
-	public void deleteStepTest() {
+	 void deleteStepTest() {
 		test = report.startTest("Delete step test");
-		assertThat(true).isEqualTo(stepService.deleteStep(validStep.getId())); // true or false
+		assertThat(stepService.deleteStep(validStep.getId())).isTrue(); // true or false
 		test.log(LogStatus.PASS, "Ok");
 		report.endTest(test);
 	}
 
 	@Test
-	public void updateStepTest() {
+	 void updateStepTest() {
 		test = report.startTest("Update step test");
 		Step validStep2 = new Step(validStep.getId(), "Attach Leash", false);
 		validStep2.setTask(validStep.getTask());
@@ -115,7 +115,7 @@ public class StepServiceIntegrationTest {
 	}
 
 	@Test
-	public void flipStepTest() {
+	 void flipStepTest() {
 		test = report.startTest("Flip step status test");
 		Step validStep2 = new Step(validStep.getId(), validStep.getName(), validStep.getTask(),
 				!validStep.isComplete());

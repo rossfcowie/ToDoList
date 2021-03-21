@@ -1,4 +1,4 @@
-package com.qa.todolistapi.model.DTO;
+package com.qa.todolistapi.model.dto;
 
 
 public class StepDTO {
@@ -86,9 +86,10 @@ public class StepDTO {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (task != other.task)
-			return false;
-		return true;
+
+			return task == other.task;
+
+
 	}
 	@Override
 	public String toString() {

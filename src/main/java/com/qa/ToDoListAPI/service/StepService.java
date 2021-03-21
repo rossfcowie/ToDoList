@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.qa.todolistapi.exceptions.StepNotFoundException;
 import com.qa.todolistapi.mapper.StepMapper;
-import com.qa.todolistapi.model.DTO.StepDTO;
 import com.qa.todolistapi.model.data.Step;
+import com.qa.todolistapi.model.dto.StepDTO;
 import com.qa.todolistapi.model.repository.StepRepository;
 
 @Service
@@ -28,7 +28,7 @@ public class StepService {
 	
 	public List<StepDTO> readStepsInId(Integer id){
 		List<Step> steps = stepRepository.findForTask(id);
-		List<StepDTO> stepDTOs = new ArrayList<StepDTO>();
+		List<StepDTO> stepDTOs = new ArrayList<>();
 		
 		steps.forEach(step -> stepDTOs.add(stepMapper.mapToDTO(step)));
 		return stepDTOs;
@@ -36,6 +36,7 @@ public class StepService {
 
 	
 	public StepDTO createStep(Step step) {
+
 		Step newStep = stepRepository.save(step);
 		
 		return stepMapper.mapToDTO(newStep);

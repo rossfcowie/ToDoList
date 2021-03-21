@@ -1,27 +1,23 @@
 package com.qa.todolistapi.model.data;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import com.qa.todolistapi.model.DTO.TaskDTO;
-import com.qa.todolistapi.model.data.Step;
-import com.qa.todolistapi.model.data.Task;
-
 import nl.jqno.equalsverifier.EqualsVerifier;
 
-public class TaskTest {
+ class TaskTest {
 
 	@Test
-	public void testEquals() {
+	 void testEquals() {
 		EqualsVerifier.simple().forClass(Task.class).withPrefabValues(Step.class, new Step("a", false), new Step("b", true)).verify();
 	}
 	@Test
-	public void ConstructorTest() {
+	 void ConstructorTest() {
 		Task newTask = new Task(0, null, null, new ArrayList<Step>());
-		assertThat(newTask.toString().equals("Task [id=" + 0 + ", nameString=" + "" + ", descrition=" + "" + ", steps=" + "[]" + "]"));
+		assertEquals(newTask.toString(),("Task [id=" + 0 + ", nameString=" + null + ", descrition=" + null + ", steps=" + "[]" + "]"));
 
 	}
 	

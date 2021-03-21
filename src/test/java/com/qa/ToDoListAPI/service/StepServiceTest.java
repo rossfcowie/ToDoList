@@ -18,8 +18,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.qa.todolistapi.mapper.StepMapper;
-import com.qa.todolistapi.model.DTO.StepDTO;
 import com.qa.todolistapi.model.data.Step;
+import com.qa.todolistapi.model.dto.StepDTO;
 import com.qa.todolistapi.model.repository.StepRepository;
 import com.qa.todolistapi.service.StepService;
 import com.relevantcodes.extentreports.ExtentReports;
@@ -27,7 +27,7 @@ import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
 @SpringBootTest
-public class StepServiceTest {
+ class StepServiceTest {
 
 	@Autowired
 	private StepService stepService;
@@ -47,11 +47,11 @@ public class StepServiceTest {
 			true);
 	static ExtentTest test;
 	@AfterAll
-	public static void teardown() {
+	 static void teardown() {
 		report.flush();
 	}
 	@BeforeEach
-	public void init() {
+	 void init() {
 		validStep = new Step(0,"Remove Trash", false);
 		validStepDTO = new StepDTO(0,"Remove Trash", false);
 
@@ -61,7 +61,7 @@ public class StepServiceTest {
 		validStepDtos.add(validStepDTO);
 	}
 	@Test
-	public void readAllStepsTest() {
+	 void readAllStepsTest() {
 		test = report.startTest("Get steps in task test");
 
 		when(stepRepository.findForTask(0)).thenReturn(validSteps);
@@ -74,7 +74,7 @@ public class StepServiceTest {
 	}
 	
 	@Test
-	public void createStepTest() {
+	 void createStepTest() {
 		test = report.startTest("Create step test");
 		
 		when(stepRepository.save(Mockito.any(Step.class))).thenReturn(validStep);
@@ -87,12 +87,12 @@ public class StepServiceTest {
 	}
 	
 	@Test
-	public void deleteStepTest() {
+	 void deleteStepTest() {
 		test = report.startTest("Delete step test");
 		
 		when(stepRepository.existsById(Mockito.any(Integer.class))).thenReturn(true,false);
 		
-		assertThat(true).isEqualTo(stepService.deleteStep(validStep.getId())); // true or false
+		assertThat(stepService.deleteStep(validStep.getId())).isTrue(); // true or false
 		
 		verify(stepRepository, times(2)).existsById(Mockito.any(Integer.class));
 		test.log(LogStatus.PASS, "Ok");
@@ -100,7 +100,7 @@ public class StepServiceTest {
 	}
 	
 	@Test
-	public void updateStepTest() {
+	 void updateStepTest() {
 		test = report.startTest("Update step test");
 		Step validStep2 = new Step(0,"Attach Leash", false);
 		StepDTO validStepDTO2 = new StepDTO(0,"Attach Leash", false);
@@ -120,7 +120,7 @@ public class StepServiceTest {
 	}
 	
 	@Test
-	public void flipStepTest() {
+	 void flipStepTest() {
 		test = report.startTest("Flip step status test");
 		Step validStep2 = new Step(0,"Remove Trash", true);
 		StepDTO validStepDTO2 = new StepDTO(0,"Remove Trash", true);

@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qa.todolistapi.model.DTO.StepDTO;
 import com.qa.todolistapi.model.data.Step;
 import com.qa.todolistapi.model.data.Task;
+import com.qa.todolistapi.model.dto.StepDTO;
 import com.qa.todolistapi.service.StepService;
 
 @RestController
@@ -37,35 +37,34 @@ public class StepController {
 	@GetMapping("/{id}")
 	public ResponseEntity<List<StepDTO>> getStepsFromId(@PathVariable("id") int id){
 		List<StepDTO> dtos = stepService.readStepsInId(id);
-		return new ResponseEntity<List<StepDTO>>(dtos, HttpStatus.OK);
+		return new ResponseEntity<>(dtos, HttpStatus.OK);
 	}
 
 	@PostMapping("/{id}")
 	public ResponseEntity<StepDTO> createStep(@PathVariable("id") int id, @RequestBody Step step){
-		Task t = new Task();
-		t.setId(id);
+		Task t = new Task(id);
 		step.setTask(t);
 		StepDTO newStepDTO = stepService.createStep(step);
 		HttpHeaders headers= new HttpHeaders();
 		headers.add("Location", String.valueOf(newStepDTO.getId()));
-		return new ResponseEntity<StepDTO>(newStepDTO,headers,HttpStatus.CREATED);
+		return new ResponseEntity<>(newStepDTO,headers,HttpStatus.CREATED);
 	}
 	@CrossOrigin
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Boolean> deleteStep(@PathVariable("id") int id) {
-		return new ResponseEntity<Boolean>(stepService.deleteStep(id), HttpStatus.OK);
+		return new ResponseEntity<>(stepService.deleteStep(id), HttpStatus.OK);
 	}
 	@CrossOrigin
 	@PutMapping("/{id}")
 	public ResponseEntity<StepDTO> updateStep(@PathVariable("id") int id, @RequestBody Step step){
 		StepDTO newStepDTO = stepService.updateStep(id,step);
-	return new ResponseEntity<StepDTO>(newStepDTO,HttpStatus.OK);
+	return new ResponseEntity<>(newStepDTO,HttpStatus.OK);
 }
 	@CrossOrigin
 	@PutMapping("/f/{id}")
 	public ResponseEntity<StepDTO> flipStep(@PathVariable("id") int id){
 		StepDTO newStepDTO = stepService.updateStep(id);
-	return new ResponseEntity<StepDTO>(newStepDTO,HttpStatus.OK);
+	return new ResponseEntity<>(newStepDTO,HttpStatus.OK);
 	}
 	
 }

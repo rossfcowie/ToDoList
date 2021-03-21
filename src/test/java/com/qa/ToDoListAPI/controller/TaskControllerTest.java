@@ -21,15 +21,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.qa.todolistapi.controller.TaskController;
-import com.qa.todolistapi.model.DTO.TaskDTO;
 import com.qa.todolistapi.model.data.Task;
+import com.qa.todolistapi.model.dto.TaskDTO;
 import com.qa.todolistapi.service.TaskService;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
 @SpringBootTest
-public class TaskControllerTest {
+ class TaskControllerTest {
 
 	@Autowired
 	private TaskController taskController;
@@ -45,7 +45,7 @@ public class TaskControllerTest {
 	static ExtentReports  report = new ExtentReports("src/test/resources/reports/Task_Controller_Unit_Report.html", true);
     static ExtentTest test;
 	@BeforeEach
-	public void init() {
+	 void init() {
 		validTask = new Task("Take out the trash", "Remove rubbish");
 		validTaskDTO = new TaskDTO("Take out the trash", "Remove rubbish",0);
 		
@@ -55,7 +55,7 @@ public class TaskControllerTest {
 		validTaskDtos.add(validTaskDTO);
 	}
 	@Test
-	public void getAllTaskstest() {
+	 void getAllTaskstest() {
 		test = report.startTest("Get all tasks test");
 		when(taskService.listAllTasks()).thenReturn(validTaskDtos);
 		ResponseEntity<List<TaskDTO>> response = new ResponseEntity<List<TaskDTO>>(validTaskDtos,HttpStatus.OK);
@@ -63,7 +63,7 @@ public class TaskControllerTest {
 		verify(taskService, times(1)).listAllTasks();
 	}
 	@Test
-	public void createTaskTest() {
+	 void createTaskTest() {
 		test = report.startTest("Create task test");
 		
 		when(taskService.createTask(Mockito.any(Task.class))).thenReturn(validTaskDTO);
@@ -74,7 +74,7 @@ public class TaskControllerTest {
 		verify(taskService, times(1)).createTask(Mockito.any(Task.class));
 	}
 	@Test
-	public void deleteTaskTest() {
+	 void deleteTaskTest() {
 		test = report.startTest("Delete task test");
 		when(taskService.deleteTask(Mockito.any(Integer.class))).thenReturn(true);
 		ResponseEntity<Boolean> response =
@@ -83,7 +83,7 @@ public class TaskControllerTest {
 		verify(taskService, times(1)).deleteTask(Mockito.any(Integer.class));
 	}
 	@Test
-	public void updateTaskTest() {
+	 void updateTaskTest() {
 		test = report.startTest("Update task test");
 		when(taskService.updateTask(Mockito.any(Integer.class),Mockito.any(Task.class))).thenReturn(validTaskDTO);
 		ResponseEntity<TaskDTO> response = new ResponseEntity<TaskDTO>(validTaskDTO,HttpStatus.OK);
@@ -91,13 +91,13 @@ public class TaskControllerTest {
 		verify(taskService, times(1)).updateTask(Mockito.any(Integer.class),Mockito.any(Task.class));
 	}
 	@AfterEach
-	public void end() {
+	 void end() {
 		test.log(LogStatus.PASS, "Ok");
 		report.endTest(test);
 	}
 	
     @AfterAll
-    public static void teardown() {
+     static void teardown() {
     	report.flush();
     }
 }

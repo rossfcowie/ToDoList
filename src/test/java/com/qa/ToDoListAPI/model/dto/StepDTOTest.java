@@ -4,25 +4,25 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import com.qa.todolistapi.model.DTO.StepDTO;
+import com.qa.todolistapi.model.dto.StepDTO;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 
-public class StepDTOTest {
+ class StepDTOTest {
 
 	
 	@Test
-	public void testEquals() {
+	 void testEquals() {
 		EqualsVerifier.simple().forClass(StepDTO.class).verify();
 	}
 	@Test
-	public void ConstructorTest() {
+	 void ConstructorTest() {
 		StepDTO newStepDTO = new StepDTO(0, null, 0, false);
-		assertEquals(newStepDTO.toString(),("StepDTO [id=" + 0 + ", name=" + "" + ", task=" + null + ", complete=" + false + "]"));
+		assertEquals(newStepDTO.toString(),("StepDTO [id=" + 0 + ", name=" + null + ", task=" + 0 + ", complete=" + false + "]"));
 		newStepDTO = new StepDTO(null, 0, false);
-		assertEquals(newStepDTO.toString(),("StepDTO [id=" + 0 + ", name=" + "" + ", task=" + null + ", complete=" + false + "]"));
+		assertEquals(newStepDTO.toString(),("StepDTO [id=" + 0 + ", name=" + null + ", task=" + 0 + ", complete=" + false + "]"));
 		newStepDTO = new StepDTO(null, false);
-		assertEquals(newStepDTO.toString(),("StepDTO [id=" + 0 + ", name=" + "" + ", task=" + null + ", complete=" + false + "]"));
+		assertEquals(newStepDTO.toString(),("StepDTO [id=" + 0 + ", name=" + null + ", task=" + 0 + ", complete=" + false + "]"));
 		
 	}
 	

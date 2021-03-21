@@ -11,11 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "task")
@@ -36,16 +36,16 @@ public class Task {
 
 	public Task(int i) {
 		id = i;
-		this.steps = new ArrayList<Step>();
+		this.steps = new ArrayList<>();
 	}
 	public Task() {
-		this.steps = new ArrayList<Step>();
+		this.steps = new ArrayList<>();
 	}
 	public Task(String name, String description) {
 		super();
 		this.name = name;
 		this.description = description;
-		this.steps = new ArrayList<Step>();
+		this.steps = new ArrayList<>();
 	}
 
 	

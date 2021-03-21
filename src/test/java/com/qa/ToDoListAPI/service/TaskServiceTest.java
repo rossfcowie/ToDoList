@@ -18,8 +18,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.qa.todolistapi.mapper.TaskMapper;
-import com.qa.todolistapi.model.DTO.TaskDTO;
 import com.qa.todolistapi.model.data.Task;
+import com.qa.todolistapi.model.dto.TaskDTO;
 import com.qa.todolistapi.model.repository.TaskRepository;
 import com.qa.todolistapi.service.TaskService;
 import com.relevantcodes.extentreports.ExtentReports;
@@ -27,7 +27,7 @@ import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
 @SpringBootTest
-public class TaskServiceTest {
+ class TaskServiceTest {
 
 	@Autowired
 	private TaskService taskService;
@@ -47,7 +47,7 @@ public class TaskServiceTest {
 	static ExtentTest test;
 
 	@BeforeEach
-	public void init() {
+	 void init() {
 		validTask = new Task(3, "Take out the trash", "Remove rubbish", null);
 		validTaskDTO = new TaskDTO(3, "Take out the trash", "Remove rubbish", 0);
 
@@ -57,11 +57,11 @@ public class TaskServiceTest {
 		validTaskDtos.add(validTaskDTO);
 	}
     @AfterAll
-    public static void teardown() {
+     static void teardown() {
     	report.flush();
     }
 	@Test
-	public void readAllTasksTest() {
+	 void readAllTasksTest() {
 
 		test = report.startTest("Get all tasks test");
 		when(taskRepository.findAll()).thenReturn(validTasks);
@@ -76,7 +76,7 @@ public class TaskServiceTest {
 	}
 
 	@Test
-	public void updateTaskTest() {
+	 void updateTaskTest() {
 		test = report.startTest("Update task test");
 		Task newTask = new Task(3, "Walk dog", "Attach Leash", null);
 		TaskDTO newTaskDTO = new TaskDTO(3, "Walk dog", "Attach Leash", 0);
@@ -96,7 +96,7 @@ public class TaskServiceTest {
 	}
 
 	@Test
-	public void createTaskTest() {
+	 void createTaskTest() {
 
 		test = report.startTest("Create task test");
 		when(taskRepository.save(Mockito.any(Task.class))).thenReturn(validTask);
@@ -111,12 +111,12 @@ public class TaskServiceTest {
 	}
 
 	@Test
-	public void deleteTaskTest() {
+	 void deleteTaskTest() {
 
 		test = report.startTest("Delete task test");
 		when(taskRepository.existsById(Mockito.any(Integer.class))).thenReturn(true, false);
 
-		assertThat(true).isEqualTo(taskService.deleteTask(validTask.getId())); // true or false
+		assertThat(taskService.deleteTask(validTask.getId())).isTrue(); // true or false
 
 		verify(taskRepository, times(2)).existsById(Mockito.any(Integer.class));
 		test.log(LogStatus.PASS, "Ok");

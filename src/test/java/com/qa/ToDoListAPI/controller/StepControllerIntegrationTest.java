@@ -21,9 +21,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qa.todolistapi.controller.StepController;
 import com.qa.todolistapi.mapper.StepMapper;
-import com.qa.todolistapi.model.DTO.StepDTO;
 import com.qa.todolistapi.model.data.Step;
 import com.qa.todolistapi.model.data.Task;
+import com.qa.todolistapi.model.dto.StepDTO;
 import com.qa.todolistapi.model.repository.StepRepository;
 import com.qa.todolistapi.service.StepService;
 import com.relevantcodes.extentreports.ExtentReports;
@@ -33,7 +33,7 @@ import com.relevantcodes.extentreports.LogStatus;
 @AutoConfigureMockMvc
 @Sql(scripts = { "classpath:test-schema.sql", "classpath:test-data.sql" },
 executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
-public class StepControllerIntegrationTest {
+ class StepControllerIntegrationTest {
 
 	@Autowired
 	private MockMvc mvc;
@@ -60,12 +60,12 @@ public class StepControllerIntegrationTest {
     static ExtentTest test;
 	
     @AfterAll
-    public static void teardown() {
+     static void teardown() {
     	report.flush();
     }
     
 	@Test
-	public void createStepTest() throws Exception {
+	 void createStepTest() throws Exception {
 		test = report.startTest("Create step test");
 		Step stepToSave = new Step("Attach leash", false);
 		stepToSave.setTask(validTask);
@@ -87,7 +87,7 @@ public class StepControllerIntegrationTest {
 		report.endTest(test);
 	}
 	@Test
-	public void getAllStepsInTaskTest() throws Exception {
+	 void getAllStepsInTaskTest() throws Exception {
 		test = report.startTest("Get steps in task test");
 		MockHttpServletRequestBuilder mockRequest = 
 				MockMvcRequestBuilders.request(HttpMethod.GET, "/Step/1");
@@ -101,7 +101,7 @@ public class StepControllerIntegrationTest {
 		report.endTest(test);
 	}
 	@Test
-	public void deleteStepTest() throws Exception {
+	 void deleteStepTest() throws Exception {
 		test = report.startTest("Delete step test");
 		MockHttpServletRequestBuilder mockRequest = 
 				MockMvcRequestBuilders.request(HttpMethod.DELETE, "/Step/1");
@@ -114,7 +114,7 @@ public class StepControllerIntegrationTest {
 		report.endTest(test);
 	}
 	@Test
-	public void updateStepTest() throws Exception {
+	 void updateStepTest() throws Exception {
 		test = report.startTest("Update step test");
 		Step stepToSave = new Step(1,"Attach leash", new Task(1), false);
 		StepDTO expectedStep = new StepDTO(1,"Attach leash",1, false);
@@ -133,7 +133,7 @@ public class StepControllerIntegrationTest {
 		report.endTest(test);
 	}
 	@Test
-	public void flipStepTest() throws Exception {
+	 void flipStepTest() throws Exception {
 		test = report.startTest("Flip step status test");
 		StepDTO expectedStep = new StepDTO(1, "Remove Trash",1, true);
 		MockHttpServletRequestBuilder mockRequest = 

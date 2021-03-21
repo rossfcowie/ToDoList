@@ -1,21 +1,13 @@
 package com.qa.todolistapi.mapper;
 
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.qa.todolistapi.model.DTO.StepDTO;
 import com.qa.todolistapi.model.data.Step;
+import com.qa.todolistapi.model.data.Task;
+import com.qa.todolistapi.model.dto.StepDTO;
 
 @Component
 public class StepMapper {
-
-	private ModelMapper modelMapper;
-	
-	@Autowired
-	public StepMapper(ModelMapper modelMapper) {
-		this.modelMapper = modelMapper;
-	}
 	
 	public StepDTO mapToDTO(Step step) {
 		StepDTO stepDTO;
@@ -26,5 +18,9 @@ public class StepMapper {
 		}
 		
 		return stepDTO;
+	}
+	
+	public Step mapToStep(StepDTO stepDTO) {
+		return new Step(stepDTO.getId(),stepDTO.getName(),new Task(stepDTO.getTask()),stepDTO.isComplete());
 	}
 }

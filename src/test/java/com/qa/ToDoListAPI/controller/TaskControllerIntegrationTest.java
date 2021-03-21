@@ -24,10 +24,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qa.todolistapi.controller.TaskController;
 import com.qa.todolistapi.mapper.StepMapper;
 import com.qa.todolistapi.mapper.TaskMapper;
-import com.qa.todolistapi.model.DTO.StepDTO;
-import com.qa.todolistapi.model.DTO.TaskDTO;
 import com.qa.todolistapi.model.data.Step;
 import com.qa.todolistapi.model.data.Task;
+import com.qa.todolistapi.model.dto.StepDTO;
+import com.qa.todolistapi.model.dto.TaskDTO;
 import com.qa.todolistapi.model.repository.StepRepository;
 import com.qa.todolistapi.model.repository.TaskRepository;
 import com.qa.todolistapi.service.StepService;
@@ -40,7 +40,7 @@ import com.relevantcodes.extentreports.LogStatus;
 @AutoConfigureMockMvc
 @Sql(scripts = { "classpath:test-schema.sql", "classpath:test-data.sql" },
 executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
-public class TaskControllerIntegrationTest {
+ class TaskControllerIntegrationTest {
 	
 	@Autowired
 	private MockMvc mvc;
@@ -67,7 +67,7 @@ public class TaskControllerIntegrationTest {
     static ExtentTest test;
 	
 	@Test
-	public void getAllTaskstest() throws Exception {
+	 void getAllTaskstest() throws Exception {
 		test = report.startTest("Get all tasks test");
 		MockHttpServletRequestBuilder mockRequest = 
 				MockMvcRequestBuilders.request(HttpMethod.GET, "/Task");
@@ -79,7 +79,7 @@ public class TaskControllerIntegrationTest {
 		   .andExpect(contentMatcher);
 	}
 	@Test
-	public void createTaskTest() throws Exception {
+	 void createTaskTest() throws Exception {
 		test = report.startTest("Create task test");
 		 Step validStep2 = new Step(1, "Remove Trash", new Task(2), false);
 		 List<Step> validSteps2 = List.of(validStep2);
@@ -101,7 +101,7 @@ public class TaskControllerIntegrationTest {
 		
 	}
 	@Test
-	public void deleteTaskTest() throws Exception {
+	 void deleteTaskTest() throws Exception {
 		test = report.startTest("Delete task test");
 		MockHttpServletRequestBuilder mockRequest = 
 				MockMvcRequestBuilders.request(HttpMethod.DELETE, "/Task/1");
@@ -112,7 +112,7 @@ public class TaskControllerIntegrationTest {
 		   .andExpect(contentMatcher);
 	}
 	@Test
-	public void updateTaskTest() throws Exception {
+	 void updateTaskTest() throws Exception {
 		test = report.startTest("Update task test");
 		 Step validStep2 = new Step(1, "Attach Leash", new Task(1), false);
 		 List<Step> validSteps2 = List.of(validStep2);
@@ -133,13 +133,13 @@ public class TaskControllerIntegrationTest {
 	}
 
 	@AfterEach
-	public void end() {
+	 void end() {
 		test.log(LogStatus.PASS, "Ok");
 		report.endTest(test);
 	}
 	
     @AfterAll
-    public static void teardown() {
+     static void teardown() {
     	report.flush();
     }
 }
