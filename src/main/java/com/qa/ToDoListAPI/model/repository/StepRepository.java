@@ -1,4 +1,4 @@
-package com.qa.ToDoListAPI.model.repository;
+package com.qa.todolistapi.model.repository;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.qa.ToDoListAPI.model.data.Step;
+import com.qa.todolistapi.model.data.Step;
 @Repository
 public interface StepRepository extends JpaRepository<Step, Integer> {
 	

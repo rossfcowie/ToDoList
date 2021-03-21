@@ -1,4 +1,4 @@
-package com.qa.ToDoListAPI.model.DTO;
+package com.qa.todolistapi.model.DTO;
 
 
 public class StepDTO {

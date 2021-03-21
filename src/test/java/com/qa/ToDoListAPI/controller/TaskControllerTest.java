@@ -1,4 +1,4 @@
-package com.qa.ToDoListAPI.controller;
+package com.qa.todolistapi.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.times;
@@ -8,6 +8,8 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -18,9 +20,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.qa.ToDoListAPI.model.DTO.TaskDTO;
-import com.qa.ToDoListAPI.model.data.Task;
-import com.qa.ToDoListAPI.service.TaskService;
+import com.qa.todolistapi.controller.TaskController;
+import com.qa.todolistapi.model.DTO.TaskDTO;
+import com.qa.todolistapi.model.data.Task;
+import com.qa.todolistapi.service.TaskService;
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 
 @SpringBootTest
 public class TaskControllerTest {
@@ -36,7 +42,8 @@ public class TaskControllerTest {
 	
 	private Task validTask;
 	private TaskDTO validTaskDTO;
-	
+	static ExtentReports  report = new ExtentReports("src/test/resources/reports/Task_Controller_Unit_Report.html", true);
+    static ExtentTest test;
 	@BeforeEach
 	public void init() {
 		validTask = new Task("Take out the trash", "Remove rubbish");
@@ -49,6 +56,7 @@ public class TaskControllerTest {
 	}
 	@Test
 	public void getAllTaskstest() {
+		test = report.startTest("Get all tasks test");
 		when(taskService.listAllTasks()).thenReturn(validTaskDtos);
 		ResponseEntity<List<TaskDTO>> response = new ResponseEntity<List<TaskDTO>>(validTaskDtos,HttpStatus.OK);
 		assertThat(response).isEqualTo(taskController.getAllTasks());
@@ -56,6 +64,7 @@ public class TaskControllerTest {
 	}
 	@Test
 	public void createTaskTest() {
+		test = report.startTest("Create task test");
 		
 		when(taskService.createTask(Mockito.any(Task.class))).thenReturn(validTaskDTO);
 		HttpHeaders headers = new HttpHeaders();
@@ -66,6 +75,7 @@ public class TaskControllerTest {
 	}
 	@Test
 	public void deleteTaskTest() {
+		test = report.startTest("Delete task test");
 		when(taskService.deleteTask(Mockito.any(Integer.class))).thenReturn(true);
 		ResponseEntity<Boolean> response =
 				new ResponseEntity<Boolean>(true, HttpStatus.OK);
@@ -74,11 +84,20 @@ public class TaskControllerTest {
 	}
 	@Test
 	public void updateTaskTest() {
+		test = report.startTest("Update task test");
 		when(taskService.updateTask(Mockito.any(Integer.class),Mockito.any(Task.class))).thenReturn(validTaskDTO);
-		
 		ResponseEntity<TaskDTO> response = new ResponseEntity<TaskDTO>(validTaskDTO,HttpStatus.OK);
 		assertThat(response).isEqualTo(taskController.updateTask(validTask.getId(),validTask));
 		verify(taskService, times(1)).updateTask(Mockito.any(Integer.class),Mockito.any(Task.class));
-		
 	}
+	@AfterEach
+	public void end() {
+		test.log(LogStatus.PASS, "Ok");
+		report.endTest(test);
+	}
+	
+    @AfterAll
+    public static void teardown() {
+    	report.flush();
+    }
 }

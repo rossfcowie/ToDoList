@@ -1,8 +1,13 @@
-package com.qa.ToDoListAPI.model.data;
+package com.qa.todolistapi.model.data;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
+
+import com.qa.todolistapi.model.data.Step;
+import com.qa.todolistapi.model.data.Task;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 
@@ -16,6 +21,6 @@ public class StepTest {
 	@Test
 	public void ConstructorTest() {
 		Step newStep = new Step(0, null, validTask, false);
-		newStep.toString();
+		assertThat(newStep.toString().equals("Step [id=" + 0 + ", name=" + "" + ", task=" + validTask + ", complete=" + false + "]"));
 	}
 }

@@ -1,17 +1,17 @@
-package com.qa.ToDoListAPI.exceptions;
+package com.qa.todolistapi.exceptions;
 
 import javax.persistence.PersistenceException;
 
 public class StepNotFoundException extends PersistenceException {
 
+	private static final long serialVersionUID = -2132777297110402496L;
+
 	public StepNotFoundException() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public StepNotFoundException(String message) {
 		super(message);
-		// TODO Auto-generated constructor stub
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.qa.ToDoListAPI.service;
+package com.qa.todolistapi.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,10 +7,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.qa.ToDoListAPI.mapper.TaskMapper;
-import com.qa.ToDoListAPI.model.DTO.TaskDTO;
-import com.qa.ToDoListAPI.model.data.Task;
-import com.qa.ToDoListAPI.model.repository.TaskRepository;
+import com.qa.todolistapi.mapper.TaskMapper;
+import com.qa.todolistapi.model.DTO.TaskDTO;
+import com.qa.todolistapi.model.data.Task;
+import com.qa.todolistapi.model.repository.TaskRepository;
 
 @Service
 public class TaskService {

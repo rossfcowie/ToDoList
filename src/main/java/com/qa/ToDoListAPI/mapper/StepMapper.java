@@ -1,11 +1,11 @@
-package com.qa.ToDoListAPI.mapper;
+package com.qa.todolistapi.mapper;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.qa.ToDoListAPI.model.DTO.StepDTO;
-import com.qa.ToDoListAPI.model.data.Step;
+import com.qa.todolistapi.model.DTO.StepDTO;
+import com.qa.todolistapi.model.data.Step;
 
 @Component
 public class StepMapper {

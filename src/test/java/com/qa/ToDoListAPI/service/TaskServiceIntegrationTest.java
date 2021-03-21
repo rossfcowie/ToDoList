@@ -1,20 +1,25 @@
-package com.qa.ToDoListAPI.service;
+package com.qa.todolistapi.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.qa.ToDoListAPI.mapper.TaskMapper;
-import com.qa.ToDoListAPI.model.DTO.TaskDTO;
-import com.qa.ToDoListAPI.model.data.Step;
-import com.qa.ToDoListAPI.model.data.Task;
-import com.qa.ToDoListAPI.model.repository.TaskRepository;
+import com.qa.todolistapi.mapper.TaskMapper;
+import com.qa.todolistapi.model.DTO.TaskDTO;
+import com.qa.todolistapi.model.data.Step;
+import com.qa.todolistapi.model.data.Task;
+import com.qa.todolistapi.model.repository.TaskRepository;
+import com.qa.todolistapi.service.TaskService;
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 
 @SpringBootTest
 public class TaskServiceIntegrationTest {
@@ -33,7 +38,8 @@ public class TaskServiceIntegrationTest {
 
 	private Task validTask;
 	private TaskDTO validTaskDTO;
-	
+    static ExtentReports  report = new ExtentReports("src/test/resources/reports/Task_Service_Integration_Report.html", true);
+    static ExtentTest test;
 	@BeforeEach
 	public void init() {
 		ArrayList<Step> arrlst =new ArrayList<Step>();
@@ -48,29 +54,45 @@ public class TaskServiceIntegrationTest {
 		validTasks.add(validTask);
 		validTaskDtos.add(validTaskDTO);
 	}
-	
+    @AfterAll
+    public static void teardown() {
+    	report.flush();
+    }
+    
 	@Test
 	public void readAllTasksTest() {
+		test = report.startTest("Get all tasks test");
 		List<TaskDTO> tasksInDb = taskService.listAllTasks();
 		assertThat(validTaskDtos).isEqualTo(tasksInDb); // true or false
+		test.log(LogStatus.PASS, "Ok");
+		report.endTest(test);
 	}
 	
 	@Test
 	public void updateTaskTest() {
+		test = report.startTest("Update task test");
 		Task newTask = new Task(validTask.getId(),"Walk dog", "Attach Leash", validTask.getSteps());
 		TaskDTO newTaskDTO = taskMapper.mapToDTO(newTask);
 		TaskDTO toTaskDTO = taskService.updateTask(validTask.getId(),newTask);
 		assertThat(newTaskDTO).isEqualTo(toTaskDTO);
+		test.log(LogStatus.PASS, "Ok");
+		report.endTest(test);
 	}
 	@Test
 	public void deleteTaskTest() {
+		test = report.startTest("Delete task test");
 		assertThat(true).isEqualTo(taskService.deleteTask(validTask.getId())); // true or false	
+		test.log(LogStatus.PASS, "Ok");
+		report.endTest(test);
 	}
 	@Test
 	public void createStepTest() {
+		test = report.startTest("Create task test");
 		Task newTask = new Task(validTask.getId(),"Walk dog", "Attach Leash", validTask.getSteps());
 		TaskDTO newTaskDTO = taskMapper.mapToDTO(newTask);
 		assertThat(newTaskDTO).isEqualTo(taskService.createTask(newTask)); // true or false
+		test.log(LogStatus.PASS, "Ok");
+		report.endTest(test);
 
 	}
 	

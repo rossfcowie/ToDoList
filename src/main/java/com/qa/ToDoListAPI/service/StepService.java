@@ -1,4 +1,4 @@
-package com.qa.ToDoListAPI.service;
+package com.qa.todolistapi.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,11 +7,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.qa.ToDoListAPI.exceptions.StepNotFoundException;
-import com.qa.ToDoListAPI.mapper.StepMapper;
-import com.qa.ToDoListAPI.model.DTO.StepDTO;
-import com.qa.ToDoListAPI.model.data.Step;
-import com.qa.ToDoListAPI.model.repository.StepRepository;
+import com.qa.todolistapi.exceptions.StepNotFoundException;
+import com.qa.todolistapi.mapper.StepMapper;
+import com.qa.todolistapi.model.DTO.StepDTO;
+import com.qa.todolistapi.model.data.Step;
+import com.qa.todolistapi.model.repository.StepRepository;
 
 @Service
 public class StepService {

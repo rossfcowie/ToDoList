@@ -1,8 +1,8 @@
-package com.qa.ToDoListAPI.model.DTO;
+package com.qa.todolistapi.model.DTO;
 
 import java.util.List;
 
-import com.qa.ToDoListAPI.model.data.Step;
+import com.qa.todolistapi.model.data.Step;
 
 public class TaskDTO {
 	private int id;

@@ -1,4 +1,4 @@
-package com.qa.ToDoListAPI.model.data;
+package com.qa.todolistapi.model.data;
 
 import javax.persistence.Column;
 

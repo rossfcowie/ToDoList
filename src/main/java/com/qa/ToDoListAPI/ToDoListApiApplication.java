@@ -1,4 +1,4 @@
-package com.qa.ToDoListAPI;
+package com.qa.todolistapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

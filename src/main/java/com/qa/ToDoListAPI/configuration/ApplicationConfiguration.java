@@ -1,4 +1,4 @@
-package com.qa.ToDoListAPI.configuration;
+package com.qa.todolistapi.configuration;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

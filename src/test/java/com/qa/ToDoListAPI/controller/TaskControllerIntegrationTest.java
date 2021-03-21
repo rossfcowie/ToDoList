@@ -1,8 +1,10 @@
-package com.qa.ToDoListAPI.controller;
+package com.qa.todolistapi.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -19,16 +21,20 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.qa.ToDoListAPI.mapper.StepMapper;
-import com.qa.ToDoListAPI.mapper.TaskMapper;
-import com.qa.ToDoListAPI.model.DTO.StepDTO;
-import com.qa.ToDoListAPI.model.DTO.TaskDTO;
-import com.qa.ToDoListAPI.model.data.Step;
-import com.qa.ToDoListAPI.model.data.Task;
-import com.qa.ToDoListAPI.model.repository.StepRepository;
-import com.qa.ToDoListAPI.model.repository.TaskRepository;
-import com.qa.ToDoListAPI.service.StepService;
-import com.qa.ToDoListAPI.service.TaskService;
+import com.qa.todolistapi.controller.TaskController;
+import com.qa.todolistapi.mapper.StepMapper;
+import com.qa.todolistapi.mapper.TaskMapper;
+import com.qa.todolistapi.model.DTO.StepDTO;
+import com.qa.todolistapi.model.DTO.TaskDTO;
+import com.qa.todolistapi.model.data.Step;
+import com.qa.todolistapi.model.data.Task;
+import com.qa.todolistapi.model.repository.StepRepository;
+import com.qa.todolistapi.model.repository.TaskRepository;
+import com.qa.todolistapi.service.StepService;
+import com.qa.todolistapi.service.TaskService;
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -57,8 +63,12 @@ public class TaskControllerIntegrationTest {
 	private List<Task> validTasks = List.of(validTask);
 	private List<TaskDTO> validTaskDtos = List.of(validTaskDTO);
 	
+	static ExtentReports  report = new ExtentReports("src/test/resources/reports/Task_Controller_Integration_Report.html", true);
+    static ExtentTest test;
+	
 	@Test
 	public void getAllTaskstest() throws Exception {
+		test = report.startTest("Get all tasks test");
 		MockHttpServletRequestBuilder mockRequest = 
 				MockMvcRequestBuilders.request(HttpMethod.GET, "/Task");
 		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isOk();
@@ -70,6 +80,7 @@ public class TaskControllerIntegrationTest {
 	}
 	@Test
 	public void createTaskTest() throws Exception {
+		test = report.startTest("Create task test");
 		 Step validStep2 = new Step(1, "Remove Trash", new Task(2), false);
 		 List<Step> validSteps2 = List.of(validStep2);
 		 Task validTask2= new Task(2,"Take out the trash", "Remove rubbish", validSteps2);
@@ -91,6 +102,7 @@ public class TaskControllerIntegrationTest {
 	}
 	@Test
 	public void deleteTaskTest() throws Exception {
+		test = report.startTest("Delete task test");
 		MockHttpServletRequestBuilder mockRequest = 
 				MockMvcRequestBuilders.request(HttpMethod.DELETE, "/Task/1");
 		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isOk();
@@ -101,6 +113,7 @@ public class TaskControllerIntegrationTest {
 	}
 	@Test
 	public void updateTaskTest() throws Exception {
+		test = report.startTest("Update task test");
 		 Step validStep2 = new Step(1, "Attach Leash", new Task(1), false);
 		 List<Step> validSteps2 = List.of(validStep2);
 		 Task validTask2= new Task(1,"Walk dog", "Attach Leash", validSteps2);
@@ -118,4 +131,15 @@ public class TaskControllerIntegrationTest {
 		   .andExpect(statusMatcher)
 		   .andExpect(contentMatcher);
 	}
+
+	@AfterEach
+	public void end() {
+		test.log(LogStatus.PASS, "Ok");
+		report.endTest(test);
+	}
+	
+    @AfterAll
+    public static void teardown() {
+    	report.flush();
+    }
 }

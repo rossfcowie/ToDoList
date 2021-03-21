@@ -1,4 +1,4 @@
-package com.qa.ToDoListAPI.controller;
+package com.qa.todolistapi.controller;
 
 import java.util.List;
 
@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qa.ToDoListAPI.model.DTO.TaskDTO;
-import com.qa.ToDoListAPI.model.data.Task;
-import com.qa.ToDoListAPI.service.TaskService;
+import com.qa.todolistapi.model.DTO.TaskDTO;
+import com.qa.todolistapi.model.data.Task;
+import com.qa.todolistapi.service.TaskService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
