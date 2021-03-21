@@ -137,9 +137,7 @@ function modSteps(){
         step.remove();
       }
      })
-     console.log(stepContainers.length)
      stepContainers.forEach((step, index) =>{
-       console.log("index:"+index)
        if(step.nodeName == "INPUT"){
      if(step.id<=index+stepContainers.length &&  step.value != ""){
          postStep(step.value);

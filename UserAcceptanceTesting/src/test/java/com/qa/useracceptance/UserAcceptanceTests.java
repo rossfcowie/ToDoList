@@ -1,3 +1,4 @@
+package com.qa.useracceptance;
 import static org.junit.Assert.fail;
 
 import java.util.concurrent.TimeUnit;

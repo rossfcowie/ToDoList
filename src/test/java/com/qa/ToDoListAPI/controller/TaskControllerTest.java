@@ -20,7 +20,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.qa.todolistapi.controller.TaskController;
 import com.qa.todolistapi.model.data.Task;
 import com.qa.todolistapi.model.dto.TaskDTO;
 import com.qa.todolistapi.service.TaskService;

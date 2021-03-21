@@ -19,13 +19,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.qa.todolistapi.controller.StepController;
-import com.qa.todolistapi.mapper.StepMapper;
 import com.qa.todolistapi.model.data.Step;
 import com.qa.todolistapi.model.data.Task;
 import com.qa.todolistapi.model.dto.StepDTO;
-import com.qa.todolistapi.model.repository.StepRepository;
-import com.qa.todolistapi.service.StepService;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
@@ -37,17 +33,12 @@ executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 
 	@Autowired
 	private MockMvc mvc;
-	@Autowired 
-	private StepController stepController;
+
+
 
 	@Autowired
-	private StepService stepService;
-	@Autowired
-	private StepRepository stepRepository;
-	@Autowired
 	private ObjectMapper objectMapper; 
-	@Autowired
-	private StepMapper stepMapper;
+
 
 	private Step validStep = new Step(1, "Remove Trash", new Task(1), false);
 	private StepDTO validStepDTO = new StepDTO(1, "Remove Trash",1, false);
