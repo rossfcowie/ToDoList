@@ -23,7 +23,7 @@ public class UserAcceptanceTests {
 	private static WebDriver driver;
 	IndexPage idexPage = new IndexPage(driver);
 	FormPage formPage = new FormPage(driver);
-    static ExtentReports  report = new ExtentReports("src/test/resources/reports/User_Acceptance_Report.html", true);
+    static ExtentReports  report = new ExtentReports("../Documentation/reports/User_Acceptance_Report.html", true);
     static ExtentTest test;
     
 	@BeforeClass

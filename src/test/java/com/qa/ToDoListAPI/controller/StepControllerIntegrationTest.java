@@ -47,7 +47,7 @@ executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 	private List<StepDTO> validStepDtos = List.of(validStepDTO);
 	private Task validTask= new Task(1,"Take out the trash", "Remove rubbish", validSteps);
 
-    static ExtentReports  report = new ExtentReports("src/test/resources/reports/Step_Controller_Integration_Report.html", true);
+    static ExtentReports  report = new ExtentReports("Documentation/reports/Step_Controller_Integration_Report.html", true);
     static ExtentTest test;
 	
     @AfterAll

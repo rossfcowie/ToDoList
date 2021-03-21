@@ -45,7 +45,7 @@ import com.relevantcodes.extentreports.LogStatus;
 	private Step validStep;
 	private StepDTO validStepDTO;
 
-    static ExtentReports  report = new ExtentReports("src/test/resources/reports/Step_Controller_Unit_Report.html", true);
+    static ExtentReports  report = new ExtentReports("Documentation/reports/Step_Controller_Unit_Report.html", true);
     static ExtentTest test;
 	@BeforeEach
 	 void init() {

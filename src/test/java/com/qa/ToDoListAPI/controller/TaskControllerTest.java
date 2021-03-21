@@ -41,7 +41,7 @@ import com.relevantcodes.extentreports.LogStatus;
 	
 	private Task validTask;
 	private TaskDTO validTaskDTO;
-	static ExtentReports  report = new ExtentReports("src/test/resources/reports/Task_Controller_Unit_Report.html", true);
+	static ExtentReports  report = new ExtentReports("Documentation/reports/Task_Controller_Unit_Report.html", true);
     static ExtentTest test;
 	@BeforeEach
 	 void init() {

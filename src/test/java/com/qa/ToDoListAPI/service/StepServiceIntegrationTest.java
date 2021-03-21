@@ -45,7 +45,7 @@ import com.relevantcodes.extentreports.LogStatus;
 	private StepDTO validStepDTO;
 	private static Task validTask;
 
-	static ExtentReports report = new ExtentReports("src/test/resources/reports/Step_Service_Integration_Report.html",
+	static ExtentReports report = new ExtentReports("Documentation/reports/Step_Service_Integration_Report.html",
 			true);
 	static ExtentTest test;
 
