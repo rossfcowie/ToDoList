@@ -59,13 +59,21 @@ public class IndexPage {
 		List<WebElement> tasks = getTasks();
 		for (WebElement task : tasks) {
 			System.out.println(task);
-			WebElement a = task.findElement(By.tagName("h2"));
-			WebElement b = task.findElement(By.tagName("h4"));
-			if(a.getText().equals(taskName)) {
-				if(b.getText().equals(description)) {
-					return true;
-				}
+			WebElement a;
+			WebElement b;
+			try {
+				a = task.findElement(By.tagName("h2"));
+				 b = task.findElement(By.tagName("h4"));
+				 if(a.getText().equals(taskName)) {
+						if(b.getText().equals(description)) {
+							return true;
+						}
+					}
+			}catch (Exception e) {
+				
 			}
+
+			
 		}
 		return false;
 	}
@@ -115,10 +123,20 @@ public class IndexPage {
 	public boolean addedStep(String name, String stepText, String step2Text) {
 		List<WebElement> tasks = getTasks();
 		for (WebElement task : tasks) {
-			WebElement a = task.findElement(By.tagName("h2"));
+			WebElement a;
+			try {
+				a = task.findElement(By.tagName("h2"));
+			} catch (Exception e) {
+				return false;
+			}
 			if(a.getText().equals(name)) {
 				boolean found =false;
-				List<WebElement> steps = task.findElements(By.tagName("span"));
+				List<WebElement> steps;
+				try {
+					steps = task.findElements(By.tagName("span"));
+				} catch (Exception e) {
+					return false;
+				}
 				for (WebElement step : steps) {
 					if(step.getText().equals(stepText)) {
 						if(found) {
