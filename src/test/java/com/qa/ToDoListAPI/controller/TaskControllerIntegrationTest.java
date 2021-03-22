@@ -63,7 +63,7 @@ executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 	private List<Task> validTasks = List.of(validTask);
 	private List<TaskDTO> validTaskDtos = List.of(validTaskDTO);
 	
-	static ExtentReports  report = new ExtentReports("src/test/resources/reports/Task_Controller_Integration_Report.html", true);
+	static ExtentReports  report = new ExtentReports("Documentation/reports/Task_Controller_Integration_Report.html", true);
     static ExtentTest test;
 	
 	@Test

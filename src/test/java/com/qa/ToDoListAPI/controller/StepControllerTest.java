@@ -20,7 +20,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.qa.todolistapi.controller.StepController;
 import com.qa.todolistapi.mapper.StepMapper;
 import com.qa.todolistapi.model.data.Step;
 import com.qa.todolistapi.model.dto.StepDTO;
@@ -46,7 +45,7 @@ import com.relevantcodes.extentreports.LogStatus;
 	private Step validStep;
 	private StepDTO validStepDTO;
 
-    static ExtentReports  report = new ExtentReports("src/test/resources/reports/Step_Controller_Unit_Report.html", true);
+    static ExtentReports  report = new ExtentReports("Documentation/reports/Step_Controller_Unit_Report.html", true);
     static ExtentTest test;
 	@BeforeEach
 	 void init() {

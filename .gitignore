@@ -1,5 +1,8 @@
 HELP.md
-target/
+/target/*
+/META-INF/
+UserAcceptanceTesting/target/
+!/target/*.jar
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/

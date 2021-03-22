@@ -20,7 +20,6 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 	 void ConstructorTest() {
 		TaskDTO newTaskDTO = new TaskDTO(0, null, null, new ArrayList<Step>());
 		assertEquals(newTaskDTO.toString(),("TaskDTO [id=" + 0 + ", nameString=" + null + ", description=" + null + ", numSteps="+ 0 + "]"));
-
 	}
 
 }
