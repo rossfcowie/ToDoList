@@ -72,9 +72,10 @@ public class IndexPage {
 	public boolean addedStep(String taskName,String step) {
 		List<WebElement> tasks = getTasks();
 		for (WebElement task : tasks) {
-			WebElement a = task.findElement(By.tagName("h2"));
+			WebElement a;
 			WebElement b;
 			try {
+				a = task.findElement(By.tagName("h2"));
 				b = task.findElement(By.tagName("span"));
 				
 			} catch (Exception e) {
@@ -96,7 +97,12 @@ public class IndexPage {
 	public void deleteAll() {
 		List<WebElement> tasks = getTasks();
 		for (WebElement task : tasks) {
-			task.click();
+			try {
+				task.click();
+			} catch (Exception e) {
+				
+			}
+			
 			clickDelete();
 		}
 	}

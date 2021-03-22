@@ -380,6 +380,7 @@ public class UserAcceptanceTests {
 }
 	@Test
 	public void FlipStepTest() throws InterruptedException {
+		test = report.startTest("Flip step test");
 		final String NAME = "Walk the dog" + Math.floor((Math.random() * 55) + 5);
 		final String DESCRIPTION = "Take the dog out for a " + Math.floor((Math.random() * 45) + 15) + " minuite walk";
 		final String STEP = "Attach Leash" + Math.floor((Math.random() * 55) + 5);
